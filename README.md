@@ -19,7 +19,7 @@ Render pipline - Built-in
     - :open_file_folder:Core
     - :open_file_folder:InputSystem
     - ...
-  - :open_file_folder:_Support  `plugins (git ignores this folder)`
+  - :open_file_folder:_Support  `plugins`
     - :open_file_folder:TextMeshPro
     - :open_file_folder:Plugins
     - ...
