@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
 
+    public SpriteRenderer playerSprite;
+
     private Vector2 _moveDirection;
 
     public void OnMove(InputAction.CallbackContext context)
@@ -15,14 +17,22 @@ public class PlayerControl : MonoBehaviour
         Move(_moveDirection);
     }
 
-    public void OnAttack(InputAction.CallbackContext context) 
+    public void OnAttack(InputAction.CallbackContext context)
     {
         Debug.Log("Attack");
     }
 
     public void OnSkills(InputAction.CallbackContext context)
     {
-        Debug.Log("Rolling over");
+        playerSprite.enabled = false;
+        Invoke(nameof(ShowPlayerSprite), 3f);
+
+        Debug.Log("Ну типо DOWN, ок?");
+    }
+
+    private void ShowPlayerSprite()
+    {
+        playerSprite.enabled = true;
     }
 
     private void Move(Vector3 direction)
