@@ -1,6 +1,6 @@
 ## Project settings
 ```
-Unity version - 2022.?
+Unity version - 2022.3.49f1
 Render pipline - Built-in
 ```
 
