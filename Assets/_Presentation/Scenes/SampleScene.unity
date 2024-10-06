@@ -207,12 +207,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1824526343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &753096493 stripped
 MonoBehaviour:
@@ -279,9 +279,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6685024631551821311, guid: 5241f73cee057404290a8961a2890d10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 519420032}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5241f73cee057404290a8961a2890d10, type: 3}
+--- !u!4 &1824526343 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6685024631551821311, guid: 5241f73cee057404290a8961a2890d10, type: 3}
+  m_PrefabInstance: {fileID: 1647767356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1173120289191637074
 Transform:
   m_ObjectHideFlags: 0
@@ -363,6 +371,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerConfig: {fileID: 11400000, guid: 928fd9c4efdb62a4d9269edc7d63e31e, type: 2}
+  OnAllEnemiesKilled:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAllEnemiesSpawned:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3871317123220210652
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,8 +483,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.28128338, g: 0.4056604, b: 0.3015308, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e88d0f981a31bbb45b5fbf833b4fa52a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -661,7 +675,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -670,7 +684,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 1647767356}
   - {fileID: 9201635740890746149}
   - {fileID: 9106945283171187428}

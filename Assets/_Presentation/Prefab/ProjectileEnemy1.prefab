@@ -5165,6 +5165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f41b9855c2469c892e2f4f60e7ab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _predictPosition: 1
   _attackEffect: {fileID: 2430728200507255707}
   _particleSystem: {fileID: 9192515074720360753}
   _particleCollision: {fileID: 6681823270909253787}

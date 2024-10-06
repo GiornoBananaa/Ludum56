@@ -6,9 +6,13 @@ namespace EntitySystem.CombatSystem
 {
     public class ProjectileAttack : EntityAttack, IParticleCollisionListener
     {
+        [SerializeField] private bool _predictPosition;
         [SerializeField] private Transform _attackEffect;
         [SerializeField] private ParticleSystem _particleSystem;
         [SerializeField] private ParticleCollisionDetector _particleCollision;
+        private Transform _target = null;
+        private Vector2 _lastPlayerPosition;
+        private Vector2 _projectileDirection;
         private float _timeAfterAttack;
         private bool _isCooldown;
         public override bool CanAttack => !_isCooldown;
@@ -21,8 +25,9 @@ namespace EntitySystem.CombatSystem
         private void Update()
         {
             CheckCooldown();
+            PredictTargetPosition();
         }
-
+        
         private void CheckCooldown()
         {
             _timeAfterAttack += Time.deltaTime;
@@ -38,11 +43,35 @@ namespace EntitySystem.CombatSystem
             _isCooldown = true;
             _timeAfterAttack = 0;
         }
-
+        
         private void AimAtTarget(Transform targetTransform)
         {
-            _attackEffect.transform.LookAt2D(targetTransform);
-            _particleSystem.transform.LookAt(targetTransform, Vector3.forward);
+            if (_target != targetTransform)
+            {
+                _target = targetTransform;
+                _lastPlayerPosition = targetTransform.position;
+            }
+
+            Vector3 lookAt = _predictPosition ? transform.position + (Vector3)_projectileDirection : targetTransform.position;
+            _attackEffect.transform.LookAt2D(lookAt);
+            _particleSystem.transform.LookAt(lookAt, Vector3.forward);
+        }
+
+        private void PredictTargetPosition()
+        {
+            if (_target == null)
+                return;
+            Vector2 targetVelocity = (_lastPlayerPosition - (Vector2)_target.position)/Time.deltaTime;
+            Vector2 start = _particleSystem.transform.position;
+            Vector2 target = _target.position;
+            float speed = _particleSystem.main.startSpeed.constant;
+            Vector2 estimatedVelocity = (target - start).normalized * speed;
+            float distance = Vector3.Distance(start, target);
+            Vector2 relativeVelocity = estimatedVelocity - targetVelocity;
+            float time = distance / relativeVelocity.magnitude;
+            Vector2 futurePosition = target - targetVelocity * time;
+            _projectileDirection = Vector2.Angle(target - start, futurePosition) < 100  ?  (futurePosition - start).normalized : (target - start).normalized;
+            _lastPlayerPosition =  _target.position;
         }
         
         private void DealDamage(IDamageable target)
