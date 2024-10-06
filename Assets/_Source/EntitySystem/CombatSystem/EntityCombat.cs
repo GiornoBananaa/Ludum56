@@ -14,11 +14,12 @@ namespace EntitySystem.CombatSystem
         {
             Collider2D collider = Physics2D.OverlapCircle(entity.transform.position, 
                 entity.MaxAttackRange, entity.Stats.AttackTargetLayer);
-            if(collider != null && collider.transform.TryGetComponent(out Entity target))
-                ChooseRandomAttack(entity, target).Attack(target);
+            
+            if(collider != null && collider.transform.TryGetComponent(out IDamageable target))
+                ChooseRandomAttack(entity, collider.transform).Attack(collider.transform, target);
         }
         
-        private EntityAttack ChooseRandomAttack(Entity entity, Entity target)
+        private EntityAttack ChooseRandomAttack(Entity entity, Transform target)
         {
             int weightSum = entity.EntityAttacks
                 .Where(entityEnemyAttack => entityEnemyAttack.CanAttack && Vector2.Distance(entity.transform.position,target.transform.position) <= entityEnemyAttack.Stats.AttackRange)

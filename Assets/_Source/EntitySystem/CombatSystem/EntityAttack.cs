@@ -13,7 +13,7 @@ namespace EntitySystem.CombatSystem
             Entity = entity;
             Stats = stats;
         }
-
-        public abstract void Attack(Entity target);
+        
+        public abstract void Attack(Transform targetTransform, IDamageable target);
     }
 }

@@ -28,24 +28,30 @@ namespace EntitySystem.CombatSystem
                 _isCooldown = false;
         }
         
-        public override void Attack(Entity target)
+        public override void Attack(Transform targetTransform, IDamageable target)
         {
             if(!CanAttack) return;
-            _particleSystem.transform.LookAt(target.transform, Vector3.forward);
+            AimAtTarget(targetTransform);
             _particleSystem.Play();
             _isCooldown = true;
+            _timeAfterAttack = 0;
         }
 
-        private void DealDamage(Entity target)
+        private void AimAtTarget(Transform targetTransform)
+        {
+            _particleSystem.transform.LookAt(targetTransform, Vector3.forward);
+        }
+
+        private void DealDamage(IDamageable target)
         {
             Entity.DamageDealer.DealDamage(target, new DamageInfo(Stats, Entity));
         }
         
         public void OnParticleCollisionEnter(GameObject other)
         {
-            if (other.TryGetComponent(out Entity entity))
+            if (other.TryGetComponent(out IDamageable damageable))
             {
-                DealDamage(entity);
+                DealDamage(damageable);
             }
         }
     }

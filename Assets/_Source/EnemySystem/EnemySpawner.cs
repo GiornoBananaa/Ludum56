@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -16,8 +17,11 @@ namespace EnemySystem
         private EnemyPoolsContainer _enemyPoolsContainer;
         private CancellationTokenSource _spawnerLoopCancellation;
         private Transform _player;
+        private bool _isSpawning;
         private float _weightSum;
         private int _entitiesSpawned;
+
+        public Action OnAllEnemiesKilled;
         
         [Inject]
         public void Construct(EnemyPoolsContainer enemyPoolsContainer, Player player)
@@ -32,6 +36,8 @@ namespace EnemySystem
 
         public void LaunchSpawner()
         {
+            if(_isSpawning) return;
+            _isSpawning = true;
             _spawnerLoopCancellation?.Dispose();
             _spawnerLoopCancellation = new CancellationTokenSource();
             SpawnLoop(_spawnerLoopCancellation.Token);
@@ -40,6 +46,7 @@ namespace EnemySystem
         public void StopSpawner()
         {
             _spawnerLoopCancellation.Cancel();
+            _isSpawning = false;
         }
         
         private async UniTask SpawnLoop(CancellationToken cancellationToken)
@@ -49,6 +56,10 @@ namespace EnemySystem
                 SpawnEnemy(ChooseRandomEnemy());
                 await UniTask.WaitForSeconds(SpawnerConfig.SpawnCooldown, cancellationToken: cancellationToken);
             }
+
+            _isSpawning = false;
+            if(_entitiesSpawned >= SpawnerConfig.EntityCount)
+                OnAllEnemiesKilled?.Invoke();
         }
         
         private EnemySpawnConfig ChooseRandomEnemy()

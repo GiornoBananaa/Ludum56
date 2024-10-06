@@ -20,11 +20,12 @@ namespace EntitySystem.CombatSystem
                 _isCooldown = false;
         }
         
-        public override void Attack(Entity target)
+        public override void Attack(Transform targetTransform, IDamageable target)
         {
             if(!CanAttack) return;
             Entity.DamageDealer.DealDamage(target, new DamageInfo(Stats, Entity));
             _isCooldown = true;
+            _timeAfterAttack = 0;
         }
     }
 }
