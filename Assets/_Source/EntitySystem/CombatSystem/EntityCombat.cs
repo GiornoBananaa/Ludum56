@@ -33,7 +33,7 @@ namespace EntitySystem.CombatSystem
                     entityEnemyAttack.Stats.AttackRange || !entityEnemyAttack.CanAttack)
                     continue;
                 buf += entityEnemyAttack.Stats.Weight;
-                if (rnd >= buf)
+                if (buf >= rnd)
                 {
                     return entityEnemyAttack;
                 }

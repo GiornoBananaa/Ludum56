@@ -11,7 +11,7 @@ namespace EntitySystem.CombatSystem
         private bool _isCooldown;
         public override bool CanAttack => !_isCooldown;
 
-        private void OnEnable()
+        private void Start()
         {
             _particleCollision.Subscribe(this, Entity.Stats.AttackTargetLayer);
         }
@@ -31,7 +31,7 @@ namespace EntitySystem.CombatSystem
         public override void Attack(Entity target)
         {
             if(!CanAttack) return;
-            _particleSystem.transform.LookAt(target.transform);
+            _particleSystem.transform.LookAt(target.transform, Vector3.forward);
             _particleSystem.Play();
             _isCooldown = true;
         }

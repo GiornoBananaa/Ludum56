@@ -39,7 +39,6 @@ namespace EnemySystem
             _entityStats = enemyData.EntityStats;
             _enemyMovement = enemyMovement;
             _entityCombat = entityCombat;
-            Debug.Log(EnemyType);
             poolsContainer.AddPool(EnemyType, Create);
         }
         

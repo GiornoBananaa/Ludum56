@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2330737281820291486}
   - component: {fileID: 1878028625985356247}
   - component: {fileID: 3093216483930140738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  playerPrefab: {fileID: 7444346107207912799}
-  alternativePrefab: {fileID: 7444346107207912799, guid: 1a3a250e6fd59224e889cdfab1095459, type: 3}
+  playerSprite: {fileID: 0}
+  playerCollider: {fileID: 0}
 --- !u!114 &3093216483930140738
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,10 +20,9 @@ namespace EnemySystem
         private int _entitiesSpawned;
         
         [Inject]
-        public void Construct(EnemyPoolsContainer enemyPoolsContainer)/*, Player player*/
+        public void Construct(EnemyPoolsContainer enemyPoolsContainer, Player player)
         {
-            /*_player = player;*/
-            Debug.Log(_enemyPoolsContainer == null);
+            _player = player.transform;
             _enemyPoolsContainer = enemyPoolsContainer;
             foreach (var enemySpawnConfig in SpawnerConfig.EnemySpawnerConfigs)
             {
@@ -54,18 +53,19 @@ namespace EnemySystem
         
         private EnemySpawnConfig ChooseRandomEnemy()
         {
-            float rnd = Random.Range(0, _weightSum + 1f);
+            float rnd = Random.Range(0, _weightSum);
             float buf = 0;
             
             foreach (var enemySpawnConfig in SpawnerConfig.EnemySpawnerConfigs)
             {
                 buf += enemySpawnConfig.Weight;
-                if (rnd > buf)
+                
+                if (buf >= rnd)
                 {
                     return enemySpawnConfig;
                 }
             }
-
+            
             return SpawnerConfig.EnemySpawnerConfigs[0];
         }
 
@@ -81,7 +81,7 @@ namespace EnemySystem
         {
             float rndAngle = Random.Range(0, 360);
             Vector2 offset = Quaternion.AngleAxis(rndAngle, Vector3.forward) * Vector2.up * SpawnerConfig.SpawnRadius;
-            return /*_player.position*/ Vector2.zero + offset;
+            return (Vector2)_player.position + offset;
         }
     }
 }

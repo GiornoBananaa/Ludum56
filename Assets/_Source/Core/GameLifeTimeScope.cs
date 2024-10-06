@@ -12,7 +12,7 @@ namespace Core
 {
     public class GameLifeTimeScope : LifetimeScope
     {
-        [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private Player _player;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -23,6 +23,10 @@ namespace Core
             IRepository<ScriptableObject> dataRepository = new DataRepository<ScriptableObject>();
             LoadResources(resourceLoader, dataRepository);
             builder.RegisterInstance(dataRepository);
+            #endregion
+            
+            #region Player
+            builder.RegisterComponent(_player);
             #endregion
             
             #region Enemy

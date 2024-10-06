@@ -20,7 +20,8 @@ namespace EntitySystem
         
         public Entity Get(EntityType entityType)
         {
-            return _enemyPools[entityType].Get();
+            var e = _enemyPools[entityType].Get();
+            return e;
         }
         
         public Entity Return(Entity enemy)

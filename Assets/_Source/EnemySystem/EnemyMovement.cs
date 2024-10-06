@@ -8,16 +8,15 @@ namespace EnemySystem
     {
         private Transform _player;
         
-        /*
         public EnemyMovement(Player player)
         {
             _player = player.transform;
         }
-        */
         
         public void HandleMovement(Entity entity)
         {
-            entity.NavMeshAgent.SetDestination(/*_player.position*/Vector2.zero);
+            Vector2 offset = (_player.position - entity.transform.position).normalized * entity.Stats.StopRange;
+            entity.NavMeshAgent.SetDestination(_player.position + (Vector3)offset);
         }
     }
 }

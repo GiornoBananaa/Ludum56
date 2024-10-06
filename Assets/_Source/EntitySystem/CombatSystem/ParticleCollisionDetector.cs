@@ -32,7 +32,6 @@ namespace EntitySystem.CombatSystem
     
         private void OnParticleCollision(GameObject other)
         {
-            Debug.Log(2);
             foreach (var listener in _listeners
                          .Where(listener => listener.Value == (listener.Value | (1 << other.layer))))
             {

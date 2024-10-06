@@ -2,6 +2,6 @@
 {
     public static class PathData
     {
-        public const string ENEMY_DATA_PATH = "Enemy/EntityData";
+        public const string ENEMY_DATA_PATH = "Enemy/EnemiesConfig";
     }
 }
