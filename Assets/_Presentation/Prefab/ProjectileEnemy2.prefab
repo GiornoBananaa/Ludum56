@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 442110655062320296, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 442110655062320296, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 442110655062320296, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61,6 +61,14 @@ PrefabInstance:
       value: ProjectileEnemy2
       objectReference: {fileID: 0}
     - target: {fileID: 2261500245566085597, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 10c5f03e8367ded4d8062f1a3a2a1425, type: 3}
+    - target: {fileID: 3642983890430781098, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: b86ab36095404214ca1b0cd5bc867be3, type: 2}
+    - target: {fileID: 8710749757814971325, guid: e5fa63c910b399347a0777b040a0f649, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 10c5f03e8367ded4d8062f1a3a2a1425, type: 3}
