@@ -2,11 +2,18 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Core.DataLoadingSystem;
+using EnemySystem;
+using EntitySystem;
+using EntitySystem.CombatSystem;
+using EntitySystem.MovementSystem;
+using InputSystem;
 
 namespace Core
 {
     public class GameLifeTimeScope : LifetimeScope
     {
+        [SerializeField] private EnemySpawner _enemySpawner;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<Bootstrapper>();
@@ -14,31 +21,28 @@ namespace Core
             #region DataLoad
             IResourceLoader resourceLoader = new ResourceLoader();
             IRepository<ScriptableObject> dataRepository = new DataRepository<ScriptableObject>();
-
             LoadResources(resourceLoader, dataRepository);
-
-            builder.RegisterInstance<IRepository<ScriptableObject>>(dataRepository);
+            builder.RegisterInstance(dataRepository);
             #endregion
             
-            /*
-            #region Input
-            builder.RegisterComponent<InputListener>(_inputListener);
-            #endregion
-            */
-            /*
             #region Enemy
-            builder.Register<IFactory<Enemy>, EnemyFactory>(Lifetime.Singleton);
-            
+            builder.Register<MeleeEnemyFactory>(Lifetime.Scoped);
+            builder.Register<ProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, MeleeEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, ProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<IEntityMovement, EnemyMovement>(Lifetime.Singleton);
+            builder.Register<IEntityCombat, EntityCombat>(Lifetime.Singleton);
+            builder.Register<EnemyPoolsContainer>(Lifetime.Singleton);
+            builder.Register<EnemyDeathHandler>(Lifetime.Singleton);
             #endregion
-            */
+            
         }
         
         private void LoadResources(IResourceLoader resourceLoader, IRepository<ScriptableObject> dataRepository)
         {
-            /*
-            resourceLoader.LoadResource(PathData.LEVEL_GENERATION_DATA_PATH,
-              typeof(LevelGenerationDataSO), dataRepository);
-              */
+            
+            resourceLoader.LoadResource(PathData.ENEMY_DATA_PATH,
+              typeof(EntityDataSO), dataRepository);
         }
     }
 }
