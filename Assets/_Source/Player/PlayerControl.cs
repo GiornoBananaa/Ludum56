@@ -15,11 +15,15 @@ public class PlayerControl : MonoBehaviour
     private bool isSkillAvailable = true;
     private bool isAttackAvailable = true;
     private bool isPlayerSpriteVisible = true;
+    private bool isMoving = true;
 
     public void OnMove(InputAction.CallbackContext context)
     {
         _moveDirection = context.ReadValue<Vector2>();
-        Move(_moveDirection);
+        if (isMoving)
+        {
+            Move(_moveDirection);
+        }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -40,11 +44,13 @@ public class PlayerControl : MonoBehaviour
             isPlayerSpriteVisible = false;
             playerSprite.enabled = false;
             playerCollider.enabled = false;
+            isMoving = false;
 
             _moveSpeed = _moveSpeed + 5;
 
             Invoke(nameof(ShowPlayerSprite), 3f); // Время невидимости
             Invoke(nameof(EnableSkills), 7f); // Время перезарядки
+            Invoke(nameof(EnableMovement), 1f);
             Debug.Log("Ну типо DOWN, ок?");
         }
     }
@@ -56,6 +62,8 @@ public class PlayerControl : MonoBehaviour
         playerSprite.enabled = true;
         playerCollider.enabled = true;
         isPlayerSpriteVisible = true;
+        isMoving = false; // Stop moving
+        Invoke(nameof(ResumeMoving), 1f); // Resume moving after 1 second
     }
 
     private void EnableAttack()
@@ -68,6 +76,17 @@ public class PlayerControl : MonoBehaviour
         isSkillAvailable = true;
     }
 
+    private void EnableMovement()
+    {
+        isMoving = true;
+    }
+
+    private void ResumeMoving()
+    {
+        isMoving = true;
+    }
+
+
     private void Move(Vector3 direction)
     {
         float scaledMoveSpeed = _moveSpeed * Time.deltaTime;
@@ -78,6 +97,9 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        Move(_moveDirection);
+        if (isMoving)
+        {
+            Move(_moveDirection);
+        }
     }
 }
