@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
 
     private bool isSkillAvailable = true;
     private bool isAttackAvailable = true;
+    private bool isPlayerSpriteVisible = true;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -23,11 +24,11 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (isAttackAvailable && isSkillAvailable)
+        if (isAttackAvailable && isPlayerSpriteVisible)
         {
             isAttackAvailable = false;
             Debug.Log("Attack");
-            Invoke(nameof(EnableAttack), 1.25f);
+            Invoke(nameof(EnableAttack), 1.57f);
         }
     }
 
@@ -36,15 +37,14 @@ public class PlayerControl : MonoBehaviour
         if (isSkillAvailable)
         {
             isSkillAvailable = false;
-            isAttackAvailable = false;
+            isPlayerSpriteVisible = false;
             playerSprite.enabled = false;
             playerCollider.enabled = false;
 
             _moveSpeed = _moveSpeed + 5;
 
-            Invoke(nameof(ShowPlayerSprite), 3f);
-            Invoke(nameof(EnableSkills), 2f);
-            Invoke(nameof(EnableAttack), 3f);
+            Invoke(nameof(ShowPlayerSprite), 3f); // Время невидимости
+            Invoke(nameof(EnableSkills), 7f); // Время перезарядки
             Debug.Log("Ну типо DOWN, ок?");
         }
     }
@@ -52,8 +52,10 @@ public class PlayerControl : MonoBehaviour
     private void ShowPlayerSprite()
     {
         _moveSpeed = _moveSpeed - 5;
+
         playerSprite.enabled = true;
         playerCollider.enabled = true;
+        isPlayerSpriteVisible = true;
     }
 
     private void EnableAttack()
