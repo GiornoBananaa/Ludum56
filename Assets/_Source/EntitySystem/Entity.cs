@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.DataLoadingSystem;
+using EnemySystem;
 using EntitySystem.CombatSystem;
 using EntitySystem.MovementSystem;
 using UnityEngine;
@@ -10,30 +11,34 @@ namespace EntitySystem
 {
     public abstract class Entity : MonoBehaviour, IDamageable
     {
-        [field: SerializeField] public EntityAttack[] EntityAttacks { get; private set; }
+        [field: SerializeField] public EntityAttack[] Attacks { get; private set; }
         [field: SerializeField] public NavMeshAgent NavMeshAgent { get; private set; }
+        [field: SerializeField] public EntityAnimationHandler AnimationHandler { get; private set; }
+        [field: SerializeField] public EntitySoundHandler SoundHandler { get; private set; }
+        
         public HashSet<EntityAttack> ActiveAttacks { get; private set; }
         public Health Health { get; private set; }
         public EntityStats Stats { get; private set; }
         public DamageDealer DamageDealer { get; private set; }
         public float MaxAttackRange { get; private set; }
         
-        private IEntityMovement _entityMovement;
-        private IEntityCombat _entityCombat;
+        private IEntityMovement _movement;
+        private IEntityCombat _combat;
         private bool _entityStarted;
         
         public void Construct(IEntityMovement entityMovement, IEntityCombat entityCombat, 
-            DamageDealer damageDealer,EntityStats entityStats)
+            DamageDealer damageDealer, EntityStats entityStats)
         {
             Stats = entityStats;
             Health = new Health(this, Stats.Health);
+            SoundHandler.SetSoundConfig(Stats.SoundConfig);
             ActiveAttacks = new HashSet<EntityAttack>();
             DamageDealer = damageDealer;
-            _entityMovement = entityMovement;
-            _entityCombat = entityCombat;
-            for (var i = 0; i < EntityAttacks.Length; i++)
+            _movement = entityMovement;
+            _combat = entityCombat;
+            for (var i = 0; i < Attacks.Length; i++)
             {
-                var attack = EntityAttacks[i];
+                var attack = Attacks[i];
                 attack.SetConfig(this, Stats.AttackStat[i]);
                 MaxAttackRange = attack.Stats.AttackRange;
             }
@@ -49,8 +54,8 @@ namespace EntitySystem
         private void Update()
         {
             if(!_entityStarted) return;
-            _entityMovement.HandleMovement(this);
-            _entityCombat.HandleCombat(this);
+            _movement.HandleMovement(this);
+            _combat.HandleCombat(this);
         }
         
         public void TakeDamage(int damage) 

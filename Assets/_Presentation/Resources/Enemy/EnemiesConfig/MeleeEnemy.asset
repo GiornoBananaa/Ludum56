@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86e5e4fff774c3d86f63555bed73a9a, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: 
-  <EntityType>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 505597150774182204, guid: d9c62194dc8dfa44682e53c3faab0a44, type: 3}
   <EntityStats>k__BackingField:
+    <EntityType>k__BackingField: 0
     <Health>k__BackingField: 1
     <Speed>k__BackingField: 3
+    <StopRange>k__BackingField: 0
     <AttackTargetLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 64
@@ -24,3 +25,7 @@ MonoBehaviour:
     - Damage: 1
       AttackRange: 1
       AttackCooldown: 1
+    <SoundConfig>k__BackingField:
+      Death: {fileID: 0}
+      Attacks:
+      - {fileID: 0}

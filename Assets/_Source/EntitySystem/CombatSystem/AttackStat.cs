@@ -6,8 +6,8 @@ namespace EntitySystem.CombatSystem
     public class AttackStat
     {
         public int Damage = 1;
-        public int AttackRange = 1;
-        public int AttackCooldown = 1;
+        public float AttackRange = 1;
+        public float AttackCooldown = 1;
         public int Weight { get; private set; } = 1;
         public int MaxTargetsCount { get; private set; } = 999;
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using EnemySystem;
 using EntitySystem.CombatSystem;
 using UnityEngine;
 
@@ -13,5 +14,6 @@ namespace EntitySystem
         [field: SerializeField] public float StopRange { get; private set; }
         [field: SerializeField] public LayerMask AttackTargetLayer { get; private set; }
         [field: SerializeField] public AttackStat[] AttackStat { get; private set; }
+        [field: SerializeField] public EntitySoundHandler.SoundConfig SoundConfig { get; private set; }
     }
 }

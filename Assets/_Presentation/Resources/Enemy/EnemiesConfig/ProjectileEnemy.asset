@@ -25,3 +25,7 @@ MonoBehaviour:
     - Damage: 1
       AttackRange: 7
       AttackCooldown: 1
+    <SoundConfig>k__BackingField:
+      Death: {fileID: 0}
+      Attacks:
+      - {fileID: 0}

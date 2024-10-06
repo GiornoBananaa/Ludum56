@@ -19,6 +19,7 @@ namespace EntitySystem
         {
             entity.NavMeshAgent.ResetPath();
             entity.gameObject.SetActive(false);
+            entity.SoundHandler.PlayDeath();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using Utils;
 
 namespace EntitySystem.CombatSystem
 {
     public class ProjectileAttack : EntityAttack, IParticleCollisionListener
     {
+        [SerializeField] private Transform _attackEffect;
         [SerializeField] private ParticleSystem _particleSystem;
         [SerializeField] private ParticleCollisionDetector _particleCollision;
         private float _timeAfterAttack;
@@ -39,9 +41,10 @@ namespace EntitySystem.CombatSystem
 
         private void AimAtTarget(Transform targetTransform)
         {
+            _attackEffect.transform.LookAt2D(targetTransform);
             _particleSystem.transform.LookAt(targetTransform, Vector3.forward);
         }
-
+        
         private void DealDamage(IDamageable target)
         {
             Entity.DamageDealer.DealDamage(target, new DamageInfo(Stats, Entity));
