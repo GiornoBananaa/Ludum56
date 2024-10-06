@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using EntitySystem;
 using UnityEngine;
+using UnityEngine.Events;
 using VContainer;
 using Random = UnityEngine.Random;
 
@@ -14,20 +15,24 @@ namespace EnemySystem
     {
         [SerializeField] private SpawnerConfigSO SpawnerConfig;
         
+        private HashSet<Entity> _spawnedEnemies;
         private EnemyPoolsContainer _enemyPoolsContainer;
         private CancellationTokenSource _spawnerLoopCancellation;
         private Transform _player;
         private bool _isSpawning;
         private float _weightSum;
         private int _entitiesSpawned;
-
-        public Action OnAllEnemiesKilled;
+        private int _entitiesKilled;
+        
+        public UnityEvent OnAllEnemiesKilled;
+        public UnityEvent OnAllEnemiesSpawned;
         
         [Inject]
         public void Construct(EnemyPoolsContainer enemyPoolsContainer, Player player)
         {
             _player = player.transform;
             _enemyPoolsContainer = enemyPoolsContainer;
+            _spawnedEnemies = new HashSet<Entity>();
             foreach (var enemySpawnConfig in SpawnerConfig.EnemySpawnerConfigs)
             {
                 _weightSum += enemySpawnConfig.Weight;
@@ -58,8 +63,18 @@ namespace EnemySystem
             }
 
             _isSpawning = false;
-            if(_entitiesSpawned >= SpawnerConfig.EntityCount)
+            if(!SpawnerConfig.Endless && _entitiesSpawned >= SpawnerConfig.EntityCount)
                 OnAllEnemiesKilled?.Invoke();
+        }
+
+        private void OnDeath(Entity entity)
+        {
+            entity.Health.OnDeath -= OnDeath;
+            if(!_spawnedEnemies.Contains(entity)) return;
+            _entitiesKilled++;
+            _spawnedEnemies.Remove(entity);
+            if(!SpawnerConfig.Endless && _entitiesKilled >= SpawnerConfig.EntityCount)
+                OnAllEnemiesSpawned?.Invoke();
         }
         
         private EnemySpawnConfig ChooseRandomEnemy()
@@ -86,6 +101,8 @@ namespace EnemySystem
             enemy.gameObject.SetActive(true);
             enemy.transform.position = ChooseRandomPositionOnCircle();
             _entitiesSpawned++;
+            _spawnedEnemies.Add(enemy);
+            enemy.Health.OnDeath += OnDeath;
         }
 
         private Vector2 ChooseRandomPositionOnCircle()

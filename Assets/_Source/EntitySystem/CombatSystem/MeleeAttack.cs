@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace EntitySystem.CombatSystem
 {
     public class MeleeAttack : EntityAttack
     {
+        [SerializeField] private Transform _attackEffect;
         private float _timeAfterAttack;
         private bool _isCooldown;
         public override bool CanAttack => !_isCooldown;
@@ -23,6 +25,7 @@ namespace EntitySystem.CombatSystem
         public override void Attack(Transform targetTransform, IDamageable target)
         {
             if(!CanAttack) return;
+            _attackEffect.transform.LookAt2D(targetTransform);
             Entity.DamageDealer.DealDamage(target, new DamageInfo(Stats, Entity));
             _isCooldown = true;
             _timeAfterAttack = 0;

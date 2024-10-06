@@ -16,20 +16,27 @@ namespace EntitySystem.CombatSystem
                 entity.MaxAttackRange, entity.Stats.AttackTargetLayer);
             
             if(collider != null && collider.transform.TryGetComponent(out IDamageable target))
-                ChooseRandomAttack(entity, collider.transform).Attack(collider.transform, target);
+            {
+                EntityAttack entityAttack = ChooseRandomAttack(entity, collider.transform, out int attackIndex);
+                if(entityAttack == null) return;
+                entityAttack.Attack(collider.transform, target);
+                entity.AnimationHandler.PlayAttack(attackIndex);
+                entity.SoundHandler.PlayAttack(attackIndex);
+            }
         }
         
-        private EntityAttack ChooseRandomAttack(Entity entity, Transform target)
+        private EntityAttack ChooseRandomAttack(Entity entity, Transform target, out int attackIndex)
         {
-            int weightSum = entity.EntityAttacks
+            int weightSum = entity.Attacks
                 .Where(entityEnemyAttack => entityEnemyAttack.CanAttack && Vector2.Distance(entity.transform.position,target.transform.position) <= entityEnemyAttack.Stats.AttackRange)
                 .Sum(entityEnemyAttack => entityEnemyAttack.Stats.Weight);
             
             int rnd = Random.Range(0, weightSum+1);
             int buf = 0;
-            
-            foreach (var entityEnemyAttack in entity.EntityAttacks)
+            attackIndex = -1;
+            foreach (var entityEnemyAttack in entity.Attacks)
             {
+                attackIndex++;
                 if (Vector2.Distance(entity.transform.position, target.transform.position) >
                     entityEnemyAttack.Stats.AttackRange || !entityEnemyAttack.CanAttack)
                     continue;
@@ -40,7 +47,7 @@ namespace EntitySystem.CombatSystem
                 }
             }
 
-            return entity.EntityAttacks[0];
+            return null;
         }
     }
 }

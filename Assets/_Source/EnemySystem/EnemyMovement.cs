@@ -15,8 +15,11 @@ namespace EnemySystem
         
         public void HandleMovement(Entity entity)
         {
-            Vector2 offset = (_player.position - entity.transform.position).normalized * entity.Stats.StopRange;
-            entity.NavMeshAgent.SetDestination(_player.position + (Vector3)offset);
+            entity.AnimationHandler.Rotate(_player.position.x > entity.transform.position.x);
+            if (!(Vector2.Distance(entity.transform.position, _player.position) > entity.Stats.StopRange)) return;
+            Vector2 offset = (entity.transform.position - _player.position).normalized * entity.Stats.StopRange;
+            Vector2 destination = _player.position + (Vector3)offset;
+            entity.NavMeshAgent.SetDestination(destination);
         }
     }
 }
