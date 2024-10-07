@@ -30,24 +30,28 @@ namespace EntitySystem.CombatSystem
             int weightSum = entity.Attacks
                 .Where(entityEnemyAttack => entityEnemyAttack.CanAttack && Vector2.Distance(entity.transform.position,target.transform.position) <= entityEnemyAttack.Stats.AttackRange)
                 .Sum(entityEnemyAttack => entityEnemyAttack.Stats.Weight);
-            
+            EntityAttack attack = null;
             int rnd = Random.Range(0, weightSum+1);
             int buf = 0;
-            attackIndex = -1;
+            int index = -1;
+            attackIndex = 0;
             foreach (var entityEnemyAttack in entity.Attacks)
             {
-                attackIndex++;
+                index++;
                 if (Vector2.Distance(entity.transform.position, target.transform.position) >
                     entityEnemyAttack.Stats.AttackRange || !entityEnemyAttack.CanAttack)
                     continue;
                 buf += entityEnemyAttack.Stats.Weight;
                 if (buf >= rnd)
                 {
-                    return entityEnemyAttack;
+                    attackIndex = index;
+                    attack = entityEnemyAttack;
                 }
+                if (entityEnemyAttack.IsAttacking)
+                    return null;
             }
 
-            return null;
+            return attack;
         }
     }
 }

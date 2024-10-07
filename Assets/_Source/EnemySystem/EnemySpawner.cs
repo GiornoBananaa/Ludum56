@@ -39,6 +39,11 @@ namespace EnemySystem
             }
         }
 
+        private void OnDestroy()
+        {
+            StopSpawner();
+        }
+
         public void LaunchSpawner()
         {
             if(_isSpawning) return;
@@ -50,7 +55,7 @@ namespace EnemySystem
         
         public void StopSpawner()
         {
-            _spawnerLoopCancellation.Cancel();
+            _spawnerLoopCancellation?.Cancel();
             _isSpawning = false;
         }
         

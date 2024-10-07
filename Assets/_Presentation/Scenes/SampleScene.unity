@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ddf9441a82d7c4291291ea72fb194a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnerConfig: {fileID: 11400000, guid: 928fd9c4efdb62a4d9269edc7d63e31e, type: 2}
+  SpawnerConfig: {fileID: 11400000, guid: 555846772e09cda468935b0fdc28ebeb, type: 2}
   OnAllEnemiesKilled:
     m_PersistentCalls:
       m_Calls: []

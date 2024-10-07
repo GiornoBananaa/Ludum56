@@ -34,6 +34,7 @@ namespace Core
             builder.Register<ProjectileEnemyFactory>(Lifetime.Scoped);
             builder.Register<EnemyFactory, MeleeEnemyFactory>(Lifetime.Scoped);
             builder.Register<EnemyFactory, ProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, BossEnemyFactory>(Lifetime.Scoped);
             builder.Register<IEntityMovement, EnemyMovement>(Lifetime.Singleton);
             builder.Register<IEntityCombat, EntityCombat>(Lifetime.Singleton);
             builder.Register<EnemyPoolsContainer>(Lifetime.Singleton);
