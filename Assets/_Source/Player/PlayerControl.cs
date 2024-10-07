@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
 
-    public SpriteRenderer playerSprite;
+    public SpriteRenderer playerSprite_Top;
+    public SpriteRenderer playerSprite_Bottom;
     public BoxCollider2D playerCollider;
 
     private Vector2 _moveDirection;
@@ -42,7 +43,8 @@ public class PlayerControl : MonoBehaviour
         {
             isSkillAvailable = false;
             isPlayerSpriteVisible = false;
-            playerSprite.enabled = false;
+            playerSprite_Top.enabled = false;
+            playerSprite_Bottom.enabled = false;
             playerCollider.enabled = false;
             isMoving = false;
 
@@ -59,11 +61,12 @@ public class PlayerControl : MonoBehaviour
     {
         _moveSpeed = _moveSpeed - 5;
 
-        playerSprite.enabled = true;
+        playerSprite_Top.enabled = true;
+        playerSprite_Bottom.enabled = true;
         playerCollider.enabled = true;
         isPlayerSpriteVisible = true;
-        isMoving = false; // Stop moving
-        Invoke(nameof(ResumeMoving), 1f); // Resume moving after 1 second
+        isMoving = false;
+        Invoke(nameof(ResumeMoving), 1f);
     }
 
     private void EnableAttack()
