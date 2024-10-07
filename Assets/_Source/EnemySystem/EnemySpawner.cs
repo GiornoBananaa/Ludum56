@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace EnemySystem
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : EntitySpawner
     {
         [SerializeField] private bool _launchOnStart;
         [SerializeField] private SpawnerConfigSO SpawnerConfig;
@@ -26,10 +26,11 @@ namespace EnemySystem
         private int _entitiesSpawned;
         private int _entitiesKilled;
         
-        public bool AllEntitiesKilled => _entitiesKilled >= SpawnerConfig.EntityCount;
-        public int EntitiesKilledCount => _entitiesKilled;
-        public UnityEvent OnAllEntitiesKilled;
-        public UnityEvent OnAllEnemiesSpawned;
+        public override bool AllEntitiesKilled { get; protected set; }
+        public override int EntitiesKilledCount => _entitiesKilled;
+        
+        [field: SerializeField] public override UnityEvent OnAllEntitiesKilled { get; protected set; }
+        [field: SerializeField] public override UnityEvent OnAllEnemiesSpawned { get; protected set; }
         
         [Inject]
         public void Construct(EnemyPoolsContainer enemyPoolsContainer, Player player)
@@ -54,7 +55,7 @@ namespace EnemySystem
             StopSpawner();
         }
 
-        public void LaunchSpawner()
+        public override void LaunchSpawner()
         {
             if(_isSpawning) return;
             _isSpawning = true;
@@ -76,10 +77,10 @@ namespace EnemySystem
                 SpawnEnemy(ChooseRandomEnemy());
                 await UniTask.WaitForSeconds(SpawnerConfig.SpawnCooldown, cancellationToken: cancellationToken);
             }
-
+            
             _isSpawning = false;
             if(!SpawnerConfig.Endless && _entitiesSpawned >= SpawnerConfig.EntityCount)
-                OnAllEntitiesKilled?.Invoke();
+                OnAllEnemiesSpawned?.Invoke();
         }
 
         private void OnDeath(Entity entity)
@@ -88,8 +89,12 @@ namespace EnemySystem
             if(!_spawnedEnemies.Contains(entity)) return;
             _entitiesKilled++;
             _spawnedEnemies.Remove(entity);
+            
             if(!SpawnerConfig.Endless && _entitiesKilled >= SpawnerConfig.EntityCount)
-                OnAllEnemiesSpawned?.Invoke();
+            {
+                AllEntitiesKilled = true;
+                OnAllEntitiesKilled?.Invoke();
+            }
         }
         
         private EnemySpawnConfig ChooseRandomEnemy()

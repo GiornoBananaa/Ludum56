@@ -24,5 +24,11 @@ namespace EnemySystem
         {
             _animator.SetTrigger(_deathProperty);
         }
+
+        public void Reset()
+        {
+            _animator.Rebind();
+            _animator.Update(0f);
+        }
     }
 }

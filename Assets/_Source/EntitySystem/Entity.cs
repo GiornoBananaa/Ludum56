@@ -48,7 +48,13 @@ namespace EntitySystem
             _entityStarted = true;
             OnEntityStart();
         }
-        
+
+        private void OnEnable()
+        {
+            if (_entityStarted)
+                Reset();
+        }
+
         protected virtual void OnEntityStart() { }
 
         private void Update()
@@ -63,7 +69,9 @@ namespace EntitySystem
 
         public void Reset()
         {
+            enabled = true; 
             Health.Reset();
+            AnimationHandler.Reset();
         }
     }
 }

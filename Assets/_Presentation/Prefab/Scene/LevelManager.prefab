@@ -46,6 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Level>k__BackingField: 1
   _transitionTime: 2
-  _restartTime: 2
-  _levelCompleteMessage: Level completed
-  _deathMessage: You are dead
+  _restartTime: 1

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using VContainer;
 
 namespace EntitySystem
@@ -15,11 +16,14 @@ namespace EntitySystem
             entity.Health.OnDeath -= OnDeath;
         }
 
-        protected virtual void OnDeath(Entity entity)
+        protected virtual async void OnDeath(Entity entity)
         {
-            entity.NavMeshAgent.ResetPath();
-            entity.gameObject.SetActive(false);
             entity.SoundHandler.PlayDeath();
+            entity.AnimationHandler.PlayDeath();
+            entity.NavMeshAgent.ResetPath();
+            entity.enabled = false;
+            await UniTask.WaitForSeconds(1);
+            entity.gameObject.SetActive(false);
         }
     }
 }

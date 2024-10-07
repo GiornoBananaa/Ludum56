@@ -2,8 +2,10 @@
 {
     public enum EntityType
     {
-        MeleeEnemy = 0,
-        ProjectileEnemy = 1,
-        BossEnemy = 1,
+        MeleeEnemy1 = 0,
+        MeleeEnemy2 = 1,
+        ProjectileEnemy1 = 2,
+        ProjectileEnemy2 = 3,
+        BossEnemy = 4,
     }
 }

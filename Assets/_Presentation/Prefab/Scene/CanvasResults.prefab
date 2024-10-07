@@ -277,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788195788181265053}
   - component: {fileID: 5269245915360263400}
+  - component: {fileID: 5738053671933171684}
   - component: {fileID: 611956103840443783}
   - component: {fileID: 2331376195070758120}
   - component: {fileID: 6966670120346647191}
@@ -286,7 +287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2788195788181265053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -320,7 +321,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreValueText: {fileID: 983658700364269796}
-  _button: {fileID: 3378335009595501193}
+  _resetButton: {fileID: 3378335009595501193}
+  _canvasGroup: {fileID: 5738053671933171684}
+--- !u!225 &5738053671933171684
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546847551480865180}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!223 &611956103840443783
 Canvas:
   m_ObjectHideFlags: 0
@@ -339,10 +353,10 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2331376195070758120
 MonoBehaviour:
@@ -535,7 +549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3740412048260176472
 RectTransform:
   m_ObjectHideFlags: 0
