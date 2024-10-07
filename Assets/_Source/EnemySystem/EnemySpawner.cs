@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using EntitySystem;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using VContainer;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ namespace EnemySystem
 {
     public class EnemySpawner : MonoBehaviour
     {
+        [SerializeField] private bool _launchOnStart;
         [SerializeField] private SpawnerConfigSO SpawnerConfig;
         
         private HashSet<Entity> _spawnedEnemies;
@@ -24,7 +26,9 @@ namespace EnemySystem
         private int _entitiesSpawned;
         private int _entitiesKilled;
         
-        public UnityEvent OnAllEnemiesKilled;
+        public bool AllEntitiesKilled => _entitiesKilled >= SpawnerConfig.EntityCount;
+        public int EntitiesKilledCount => _entitiesKilled;
+        public UnityEvent OnAllEntitiesKilled;
         public UnityEvent OnAllEnemiesSpawned;
         
         [Inject]
@@ -37,6 +41,12 @@ namespace EnemySystem
             {
                 _weightSum += enemySpawnConfig.Weight;
             }
+        }
+
+        private void Start()
+        {
+            if(_launchOnStart)
+                LaunchSpawner();
         }
 
         private void OnDestroy()
@@ -69,7 +79,7 @@ namespace EnemySystem
 
             _isSpawning = false;
             if(!SpawnerConfig.Endless && _entitiesSpawned >= SpawnerConfig.EntityCount)
-                OnAllEnemiesKilled?.Invoke();
+                OnAllEntitiesKilled?.Invoke();
         }
 
         private void OnDeath(Entity entity)
