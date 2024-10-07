@@ -34,5 +34,7 @@ namespace EntitySystem
         {
             HP = MaxHP;
         }
+
+
     }
 }
