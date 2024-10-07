@@ -7,7 +7,8 @@ namespace EntitySystem.CombatSystem
         protected Entity Entity;
         public AttackStat Stats { get; private set; }
         public virtual bool CanAttack { get; protected set; } = true;
-        
+        public abstract bool IsAttacking { get; }
+
         public void SetConfig(Entity entity, AttackStat stats)
         {
             Entity = entity;

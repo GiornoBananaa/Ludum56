@@ -15,6 +15,8 @@ namespace EntitySystem.CombatSystem
         private Vector2 _projectileDirection;
         private float _timeAfterAttack;
         private bool _isCooldown;
+        
+        public override bool IsAttacking => false;
         public override bool CanAttack => !_isCooldown;
 
         private void Start()
@@ -87,7 +89,7 @@ namespace EntitySystem.CombatSystem
             }
         }
     }
-
+    
     public interface IParticleCollisionListener
     {
         void OnParticleCollisionEnter(GameObject other);

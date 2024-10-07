@@ -8,6 +8,8 @@ namespace EntitySystem.CombatSystem
         [SerializeField] private Transform _attackEffect;
         private float _timeAfterAttack;
         private bool _isCooldown;
+        
+        public override bool IsAttacking => false;
         public override bool CanAttack => !_isCooldown;
         
         private void Update()

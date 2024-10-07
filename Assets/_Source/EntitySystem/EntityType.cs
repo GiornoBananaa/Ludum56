@@ -4,5 +4,6 @@
     {
         MeleeEnemy = 0,
         ProjectileEnemy = 1,
+        BossEnemy = 1,
     }
 }
