@@ -14,20 +14,19 @@ namespace LevelSystem
         [field: SerializeField] public int Level { get; private set; }
         [SerializeField] private float _transitionTime;
         [SerializeField] private float _restartTime;
-        [SerializeField] private string _levelCompleteMessage;
-        [SerializeField] private string _deathMessage;
         
         private LevelResultsView _levelResultsView;
-        private IEnumerable<EnemySpawner> _spawners;
+        private EntitySpawner _spawner;
         private Player _player;
         
         [Inject]
-        public void Construct(Player player, IEnumerable<EnemySpawner> spawners, LevelResultsView levelResultsView)
+        public void Construct(Player player, EntitySpawner spawner, LevelResultsView levelResultsView)
         {
             _player = player;
-            //_player.OnDeath += OnPlayerDeath; // TODO onDeath event
+            _player.OnDeath += OnPlayerDeath;
             _levelResultsView = levelResultsView;
-            _spawners = spawners;
+            _spawner = spawner;
+            _spawner.OnAllEntitiesKilled.AddListener(OnEnemiesKilled);
         }
         
         private void Awake()
@@ -50,22 +49,24 @@ namespace LevelSystem
             PlayerPrefs.SetInt(LEVEL_PROPERTY, 0);
             PlayerPrefs.Save();
         }
-        
-        private void OnPlayerDeath()
+
+        private async void OnEnemiesKilled()
         {
-            int count = 0;
-            foreach (var spawner in _spawners)
-            {
-                count += spawner.EntitiesKilledCount;
-            }
+            await UniTask.WaitForSeconds(1);
+            NextLevel();
+        }
+        
+        private async void OnPlayerDeath()
+        {
+            await UniTask.WaitForSeconds(2);
             
-            _levelResultsView.SetResults(count);
+            _levelResultsView.OnRestart.AddListener(RestartLevel);
+            _levelResultsView.SetResults(_spawner.EntitiesKilledCount);
             _levelResultsView.ShowResults();
         }
         
         private async UniTaskVoid LevelNextTransition()
         {
-            _levelResultsView.HideResults();
             //_player.; // TODO call player dig animation
             await UniTask.WaitForSeconds(_transitionTime);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -73,6 +74,7 @@ namespace LevelSystem
         
         private async UniTaskVoid RestartTransition()
         {
+            _levelResultsView.HideResults();
             await UniTask.WaitForSeconds(_restartTime);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

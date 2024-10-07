@@ -8,10 +8,20 @@ namespace EnemySystem
 {
     public class ProjectileEnemyFactory : EnemyFactory
     {
-        public override EntityType EnemyType => EntityType.ProjectileEnemy;
+        public override EntityType EnemyType => EntityType.ProjectileEnemy1;
 
 
         public ProjectileEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer)
+        {
+        }
+    }
+    
+    public class SecondProjectileEnemyFactory : EnemyFactory
+    {
+        public override EntityType EnemyType => EntityType.ProjectileEnemy2;
+
+
+        public SecondProjectileEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer)
         {
         }
     }

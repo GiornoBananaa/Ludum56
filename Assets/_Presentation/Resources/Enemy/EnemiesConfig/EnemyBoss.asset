@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 7805568721632076299, guid: 1ba71d01b13348348a6526c32e02e215, type: 3}
   <EntityStats>k__BackingField:
-    <EntityType>k__BackingField: 1
+    <EntityType>k__BackingField: 4
     <Health>k__BackingField: 10
     <Speed>k__BackingField: 0
     <StopRange>k__BackingField: 20
@@ -23,7 +23,7 @@ MonoBehaviour:
       m_Bits: 64
     <AttackStat>k__BackingField:
     - Damage: 1
-      AttackRange: 5
+      AttackRange: 2
       AttackCooldown: 1
     - Damage: 1
       AttackRange: 100
