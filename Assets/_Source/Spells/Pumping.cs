@@ -11,7 +11,7 @@ public class Pumping : MonoBehaviour
 
     private void Start()
     {
-        levelUpWindow.SetActive(false);
+        //levelUpWindow.SetActive(false);
     }
 
     public void AddKill()
