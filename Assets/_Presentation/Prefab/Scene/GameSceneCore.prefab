@@ -235,7 +235,9 @@ MonoBehaviour:
   _screenFade: {fileID: 1832925046534884548}
   _levelResultsView: {fileID: 6494100149825909389}
   _levelManager: {fileID: 7710771851564159639}
-  _entitySpawner: {fileID: 947145524338074285}
+  _entitySpawner:
+  - {fileID: 947145524338074285}
+  _bossCutscene: {fileID: 0}
 --- !u!1 &5332471983843825919
 GameObject:
   m_ObjectHideFlags: 0

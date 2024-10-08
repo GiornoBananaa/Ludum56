@@ -7,7 +7,7 @@ namespace Core
 {
     public class Bootstrapper : IStartable
     {
-        public Bootstrapper(IEnumerable<EnemyFactory> factories)
+        public Bootstrapper(IEnumerable<EnemyFactory> factories, IEnumerable<EntitySpawner> spawner)
         {
             
         }

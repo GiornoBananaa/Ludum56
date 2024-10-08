@@ -11,7 +11,6 @@ namespace EnemySystem
         [SerializeField] private bool _launchOnStart;
         [SerializeField] private EntityType _entityType;
         
-        private HashSet<Entity> _spawnedEnemies;
         private EnemyPoolsContainer _enemyPoolsContainer;
         private bool _isSpawned;
 
@@ -25,6 +24,7 @@ namespace EnemySystem
         [Inject]
         public void Construct(EnemyPoolsContainer enemyPoolsContainer)
         {
+            Debug.Log("Construct");
             _enemyPoolsContainer = enemyPoolsContainer;
         }
 
@@ -55,7 +55,6 @@ namespace EnemySystem
             Entity enemy = _enemyPoolsContainer.Get(enemyType);
             enemy.transform.position = transform.position;
             enemy.gameObject.SetActive(true);
-            _spawnedEnemies.Add(enemy);
             enemy.Health.OnDeath += OnDeath;
         }
     }

@@ -21,7 +21,7 @@ namespace LevelSystem
         public void DoLightFade()
         {
             _tween?.Kill();
-            _tween = _fadeImage.DOFade(0.5f,_fadeTime);
+            _tween = _fadeImage.DOFade(0.8f,_fadeTime);
         }
         
         public void DoNoFade()

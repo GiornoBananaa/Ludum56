@@ -16,17 +16,14 @@ namespace LevelSystem
         [SerializeField] private float _restartTime;
         
         private LevelResultsView _levelResultsView;
-        private EntitySpawner _spawner;
         private Player _player;
         
         [Inject]
-        public void Construct(Player player, EntitySpawner spawner, LevelResultsView levelResultsView)
+        public void Construct(Player player, LevelResultsView levelResultsView)
         {
             _player = player;
             _player.OnDeath += OnPlayerDeath;
             _levelResultsView = levelResultsView;
-            _spawner = spawner;
-            _spawner.OnAllEntitiesKilled.AddListener(OnEnemiesKilled);
         }
         
         private void Awake()
@@ -50,7 +47,7 @@ namespace LevelSystem
             PlayerPrefs.Save();
         }
 
-        private async void OnEnemiesKilled()
+        public async void EndLevel()
         {
             await UniTask.WaitForSeconds(1);
             NextLevel();
@@ -61,7 +58,7 @@ namespace LevelSystem
             await UniTask.WaitForSeconds(2);
             
             _levelResultsView.OnRestart.AddListener(RestartLevel);
-            _levelResultsView.SetResults(_spawner.EntitiesKilledCount);
+            //_levelResultsView.SetResults(_spawner.EntitiesKilledCount);
             _levelResultsView.ShowResults();
         }
         
