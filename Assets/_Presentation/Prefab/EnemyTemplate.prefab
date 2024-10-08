@@ -294,6 +294,7 @@ MonoBehaviour:
   <NavMeshAgent>k__BackingField: {fileID: 7561320226912044809}
   <AnimationHandler>k__BackingField: {fileID: -5704125035640346673}
   <SoundHandler>k__BackingField: {fileID: -1416790454121232700}
+  <Hitbox>k__BackingField: {fileID: 5831548900848865620}
   kill: 0
 --- !u!114 &-5704125035640346673
 MonoBehaviour:
@@ -307,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ecbc4ef16a430e92a695416fa37504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DeathAnimationTime>k__BackingField: 1
   _animator: {fileID: 5850657256648582794}
   _renderer: {fileID: 1971736103289412509}
 --- !u!114 &-1416790454121232700

@@ -23,11 +23,13 @@ MonoBehaviour:
       m_Bits: 64
     <AttackStat>k__BackingField:
     - Damage: 1
-      AttackRange: 2
+      AttackRange: 1.2
       AttackCooldown: 1
+      LongAttack: 0
     - Damage: 1
       AttackRange: 100
       AttackCooldown: 5
+      LongAttack: 1
     <SoundConfig>k__BackingField:
       Death: {fileID: 0}
       Attacks:

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using EnemySystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
@@ -20,8 +21,8 @@ namespace EntitySystem.CombatSystem
         }
         
         [SerializeField] private AreaProjectileAttackConfig[] _configs;
-        [SerializeField] private Transform[] _attackEffects;
         [SerializeField] private ParticleCollisionDetector[] _particleCollision;
+        [SerializeField] private EntityAnimationHandler _entityAnimationHandler;
         
         private CancellationTokenSource _attackCancellation;
         private float _timeAfterAttack;
@@ -74,6 +75,7 @@ namespace EntitySystem.CombatSystem
 
         private async UniTaskVoid AreaAttack(CancellationToken cancellationToken)
         {
+            _entityAnimationHandler.SetAttack(true);
             for (int i = 0; i < _configs[_configIndex].ShotsCount; i++)
             {
                 foreach (var particle in _configs[_configIndex].ParticleSystem)
@@ -83,6 +85,7 @@ namespace EntitySystem.CombatSystem
 
                 await UniTask.WaitForSeconds(_configs[_configIndex].ShotsGapTime, cancellationToken: cancellationToken);
             }
+            _entityAnimationHandler.SetAttack(false);
             _timeAfterAttack = 0;
             _isAttacking = false;
         }
@@ -90,20 +93,12 @@ namespace EntitySystem.CombatSystem
         private void AimAtTarget()
         {
             _directionOffset += Time.deltaTime * _configs[_configIndex].RotationSpeed;
-            float step = 360f / _attackEffects.Length;
+            float step = 360f / _configs[_configIndex].ParticleSystem.Length;
             float angle = _directionOffset;
-            foreach (var effect in _attackEffects)
-            {
-                Vector3 lookAt = transform.position + Quaternion.Euler(0, 0, angle) * Vector3.up;
-                effect.transform.LookAt2D(lookAt);
-                angle += step;
-            }
-            step = 360f / _configs[_configIndex].ParticleSystem.Length;
-            angle = _directionOffset;
             foreach (var particle in _configs[_configIndex].ParticleSystem)
             {
-                Vector3 lookAt = transform.position + Quaternion.Euler(0, 0, angle) * Vector3.up;
-                particle.transform.LookAt(lookAt, Vector3.forward);
+                Vector3 direction = Quaternion.AngleAxis(angle, Vector3.forward) * Vector3.up;
+                particle.transform.rotation = Quaternion.LookRotation(direction);
                 angle += step;
             }
         }

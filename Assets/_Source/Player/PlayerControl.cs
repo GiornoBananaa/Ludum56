@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour
     public BoxCollider2D hitBox;
     public BoxCollider2D projectileDestroyerCollider;
     
-    private readonly Vector2 _playerCenterOffset = new (0,1);
+    private readonly Vector2 _playerCenterOffset = new (0,0);
     private HashSet<IDamageable> _attackAffected = new HashSet<IDamageable>();
     private Vector2 _moveDirection;
     private Camera _camera;
@@ -34,6 +34,7 @@ public class PlayerControl : MonoBehaviour
         _moveSpeed = _player.speed;
         projectileDestroyerCollider.enabled = false;
         _player.OnDeath += OnDeath;
+        _player.OnLevelSwitch += OnLevelSwitch;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -53,7 +54,6 @@ public class PlayerControl : MonoBehaviour
             _animationHandler.PlayAttack();
             DealDamage();
             _attackAffected.Clear();
-            Debug.Log("Attack");
             Invoke(nameof(EnableAttack), 1.57f);
         }
     }
@@ -98,16 +98,18 @@ public class PlayerControl : MonoBehaviour
     {
         dealDamage = false;
     }
-    
+
     private void DealDamage()
     {
-        Vector2 mousePosition = _camera.ScreenToWorldPoint(Mouse.current.position.value);
-        Vector2 direction = (mousePosition - (Vector2)transform.position + _playerCenterOffset).normalized;
-        Vector2 center = transform.position + (Vector3)_playerCenterOffset;
+        Vector2 screenCenter = new Vector2((float)Screen.width/2, (float)Screen.height/2);
+        Vector2 direction = (Mouse.current.position.ReadValue() - screenCenter).normalized;
+        Vector2 attackCenter = (Vector2)transform.position + direction * _player.attackRadius/2;
+        
         projectileDestroyerCollider.enabled = true;
-        projectileDestroyerCollider.transform.position = center;
+        projectileDestroyerCollider.transform.position = attackCenter;
         projectileDestroyerCollider.size = new Vector2(_player.attackRadius, _player.attackRadius);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, _player.attackRadius, _player.enemyLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, _player.attackRadius, _player.enemyLayer);
+        
         foreach (var collider in hitColliders)
         {
             Vector2 directionToCollider = collider.transform.position - transform.position + (Vector3)_playerCenterOffset;
@@ -117,6 +119,7 @@ public class PlayerControl : MonoBehaviour
                 {
                     if(!_attackAffected.Contains(damageable))
                     {
+                        _player.killedEnemies++;
                         damageable.TakeDamage(_player.attackPower);
                         _attackAffected.Add(damageable);
                     }
@@ -168,9 +171,17 @@ public class PlayerControl : MonoBehaviour
     private void OnDeath()
     {
         isDead = true;
+        hitBox.enabled = false;
         _animationHandler.PlayDeath();
     }
-
+    
+    private void OnLevelSwitch()
+    {
+        isDead = true;
+        hitBox.enabled = false;
+        _animationHandler.PlayLevelSwitch();
+    }
+    
     private void Move(Vector3 direction)
     {
         if(isDead) return;

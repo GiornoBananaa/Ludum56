@@ -1,5 +1,6 @@
 ﻿using System;
 using EntitySystem.CombatSystem;
+using UnityEngine;
 
 namespace EntitySystem
 {
@@ -24,6 +25,8 @@ namespace EntitySystem
             if(damage == 0 || HP <= 0) return;
 
             HP -= damage;
+            HP = HP < 0 ? 0: HP;
+            
             OnTakeDamage?.Invoke(damage);
             
             if(HP<=0)

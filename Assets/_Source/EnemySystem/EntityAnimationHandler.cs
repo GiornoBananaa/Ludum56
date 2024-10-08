@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace EnemySystem
 {
@@ -6,7 +7,10 @@ namespace EnemySystem
     {
         private static readonly string _attackProperty = "Attack";
         private static readonly int _deathProperty = Animator.StringToHash("Death");
-        
+        private static readonly int _longAttackProperty = Animator.StringToHash("LongAttack");
+        private static readonly int _isAttackProperty = Animator.StringToHash("IsAttack");
+
+        [field: SerializeField] public float DeathAnimationTime { get; private set; }
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _renderer;
         
@@ -14,6 +18,16 @@ namespace EnemySystem
         {
             _animator.SetTrigger(_attackProperty + attack);
         } 
+        
+        public void SetLongAttack(bool value)
+        {
+            _animator.SetBool(_longAttackProperty, value);
+        }
+        
+        public void SetAttack(bool value)
+        {
+            _animator.SetBool(_isAttackProperty, value);
+        }
         
         public void Rotate(bool right)
         {

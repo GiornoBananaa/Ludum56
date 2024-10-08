@@ -72,7 +72,7 @@ namespace EnemySystem
         
         private async UniTask SpawnLoop(CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested && _entitiesSpawned < SpawnerConfig.EntityCount)
+            while (!cancellationToken.IsCancellationRequested && (SpawnerConfig.Endless || _entitiesSpawned < SpawnerConfig.EntityCount))
             {
                 SpawnEnemy(ChooseRandomEnemy());
                 await UniTask.WaitForSeconds(SpawnerConfig.SpawnCooldown, cancellationToken: cancellationToken);

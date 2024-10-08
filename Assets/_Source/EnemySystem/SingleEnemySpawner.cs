@@ -24,7 +24,6 @@ namespace EnemySystem
         [Inject]
         public void Construct(EnemyPoolsContainer enemyPoolsContainer)
         {
-            Debug.Log("Construct");
             _enemyPoolsContainer = enemyPoolsContainer;
         }
 

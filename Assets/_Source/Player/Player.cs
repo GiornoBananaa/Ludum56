@@ -8,6 +8,8 @@ public class Player : MonoBehaviour, IDamageable
 {
     [field: SerializeField] protected bool kill;
     
+    public int killedEnemies;
+    
     public int attackPower = 1;
     public int passiveAttack = 0;
     public int AttackJerk = 1;
@@ -20,7 +22,9 @@ public class Player : MonoBehaviour, IDamageable
     public LayerMask enemyLayer;
     
     private bool IsDead;
+    
     public Action OnDeath;
+    public Action OnLevelSwitch;
 
     private void FixedUpdate()
     {

@@ -22,7 +22,9 @@ namespace EntitySystem
             entity.AnimationHandler.PlayDeath();
             entity.NavMeshAgent.ResetPath();
             entity.enabled = false;
-            await UniTask.WaitForSeconds(1);
+            entity.TurnOffCollision();
+            await UniTask.WaitForSeconds(entity.AnimationHandler.DeathAnimationTime);
+            if(entity==null) return;
             entity.gameObject.SetActive(false);
         }
     }

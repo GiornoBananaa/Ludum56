@@ -15,6 +15,7 @@ namespace EntitySystem
         [field: SerializeField] public NavMeshAgent NavMeshAgent { get; private set; }
         [field: SerializeField] public EntityAnimationHandler AnimationHandler { get; private set; }
         [field: SerializeField] public EntitySoundHandler SoundHandler { get; private set; }
+        [field: SerializeField] public Collider2D Hitbox { get; private set; }
         
         public HashSet<EntityAttack> ActiveAttacks { get; private set; }
         public Health Health { get; private set; }
@@ -66,12 +67,16 @@ namespace EntitySystem
         
         public void TakeDamage(int damage) 
             => Health.TakeDamage(damage);
-
+        
+        public void TurnOffCollision() 
+            => Hitbox.enabled = false;
+        
         public void Reset()
         {
             enabled = true; 
             Health.Reset();
             AnimationHandler.Reset();
+            Hitbox.enabled = true;
         }
     }
 }

@@ -59,13 +59,13 @@ namespace LevelSystem
             await UniTask.WaitForSeconds(2);
             
             _levelResultsView.OnRestart.AddListener(RestartLevel);
-            //_levelResultsView.SetResults(_spawner.EntitiesKilledCount);
+            _levelResultsView.SetResults(_player.killedEnemies);
             _levelResultsView.ShowResults();
         }
         
         private async UniTaskVoid LevelNextTransition()
         {
-            //_player.; // TODO call player dig animation
+            _player.OnLevelSwitch?.Invoke(); // call player dig animation
             await UniTask.WaitForSeconds(_transitionTime);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }

@@ -6,6 +6,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     private const string SKILL_PROPERTY = "Skill";
     private const string MOVE_PROPERTY = "Move";
     private const string DEATH_PROPERTY = "Death";
+    private const string NEXTLEVEL_PROPERTY = "NextLevel";
     
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer[] _spriteRenderers;
@@ -41,5 +42,10 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void PlayDeath()
     {
         _animator.SetTrigger(DEATH_PROPERTY);
+    }
+
+    public void PlayLevelSwitch()
+    {
+        _animator.SetTrigger(NEXTLEVEL_PROPERTY);
     }
 }
