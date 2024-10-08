@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EntitySystem.CombatSystem;
 using UnityEngine;
-using UnityEngine.UI; // Add this namespace for UI components
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -19,7 +19,6 @@ public class Player : MonoBehaviour, IDamageable
     private bool IsDead;
     public Action OnDeath;
 
-    // Add references to the HP images
     public Image hpImage1;
     public Image hpImage2;
 
@@ -39,14 +38,13 @@ public class Player : MonoBehaviour, IDamageable
             OnDeath?.Invoke();
         }
 
-        // Update the HP images based on the player's HP
         if (hp < 1)
         {
-            hpImage1.enabled = false; // Hide the first image
+            hpImage1.enabled = false;
         }
         else
         {
-            hpImage1.enabled = true; // Show the first image
+            hpImage1.enabled = true;
         }
     }
 }
