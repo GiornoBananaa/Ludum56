@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5716017920611185476}
   - component: {fileID: 2590515725706359666}
   - component: {fileID: 2003329909695762462}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Projectile (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3845,7 +3845,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5108,7 +5108,7 @@ GameObject:
   - component: {fileID: 8484331439415449632}
   - component: {fileID: 7558655802109788135}
   - component: {fileID: 1601581662627980470}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Projectile (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8941,7 +8941,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -10004,7 +10004,7 @@ GameObject:
   - component: {fileID: 8930234582769603205}
   - component: {fileID: 2976167515563337341}
   - component: {fileID: 5358176397903680255}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Projectile (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13837,7 +13837,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -14900,7 +14900,7 @@ GameObject:
   - component: {fileID: 8279373665948971800}
   - component: {fileID: 4144920659913599367}
   - component: {fileID: 7423373165475489051}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Projectile (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18733,7 +18733,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -19892,7 +19892,7 @@ GameObject:
   - component: {fileID: 4866077958158174988}
   - component: {fileID: 621029476555806885}
   - component: {fileID: 4367708437031039770}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23725,7 +23725,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -25186,7 +25186,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1971736103289412509, guid: 2f4ca6f7eb551c5448d056a114fd5d5c, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4425132473497395456, guid: 2f4ca6f7eb551c5448d056a114fd5d5c, type: 3}
       propertyPath: m_LocalRotation.w

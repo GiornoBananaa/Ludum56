@@ -1,22 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using EntitySystem.CombatSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-
+    [SerializeField] private Player _player;
+    [SerializeField] private PlayerAnimationHandler _animationHandler;
+    
     public SpriteRenderer playerSprite_Top;
     public SpriteRenderer playerSprite_Bottom;
-    public BoxCollider2D playerCollider;
-
+    public BoxCollider2D hitBox;
+    public BoxCollider2D projectileDestroyerCollider;
+    
+    private readonly Vector2 _playerCenterOffset = new (0,1);
+    private HashSet<IDamageable> _attackAffected = new HashSet<IDamageable>();
     private Vector2 _moveDirection;
-
+    private Camera _camera;
+    private float _moveSpeed;
+    private bool dealDamage;
+    private bool isDead;
     private bool isSkillAvailable = true;
     private bool isAttackAvailable = true;
-    private bool isPlayerSpriteVisible = true;
+    private bool isSkill = false;
     private bool isMoving = true;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+        _moveSpeed = _player.speed;
+        projectileDestroyerCollider.enabled = false;
+        _player.OnDeath += OnDeath;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -29,9 +47,12 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (isAttackAvailable && isPlayerSpriteVisible)
+        if (isAttackAvailable && !isSkill)
         {
             isAttackAvailable = false;
+            _animationHandler.PlayAttack();
+            DealDamage();
+            _attackAffected.Clear();
             Debug.Log("Attack");
             Invoke(nameof(EnableAttack), 1.57f);
         }
@@ -42,33 +63,88 @@ public class PlayerControl : MonoBehaviour
         if (isSkillAvailable)
         {
             isSkillAvailable = false;
-            isPlayerSpriteVisible = false;
-            playerSprite_Top.enabled = false;
-            playerSprite_Bottom.enabled = false;
-            playerCollider.enabled = false;
-            isMoving = false;
-
-            _moveSpeed = _moveSpeed + 5;
-
-            Invoke(nameof(ShowPlayerSprite), 3f); // Время невидимости
-            Invoke(nameof(EnableSkills), 7f); // Время перезарядки
-            Invoke(nameof(EnableMovement), 1f);
-            Debug.Log("Ну типо DOWN, ок?");
+            isSkill = true;
+            hitBox.enabled = false;
+            
+            _moveSpeed = _player.skillSpeed;
+            _animationHandler.PlaySkill();
+            Invoke(nameof(ShowPlayerSprite), 3f); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            Invoke(nameof(CancelSkill), 2f); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            Invoke(nameof(EnableSkills), 6f); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            Debug.Log("пїЅпїЅ пїЅпїЅпїЅпїЅ DOWN, пїЅпїЅ?");
         }
     }
+    
+    private void Update()
+    {
+        if(isDead) return;
+        if (isMoving)
+        {
+            Move(_moveDirection);
+        }
 
+        if (dealDamage)
+        {
+            DealDamage();
+        }
+    }
+    
+    public void EnableDamageDealer()
+    {
+        dealDamage = true;
+    }
+    
+    public void DisableDamageDealer()
+    {
+        dealDamage = false;
+    }
+    
+    private void DealDamage()
+    {
+        Vector2 mousePosition = _camera.ScreenToWorldPoint(Mouse.current.position.value);
+        Vector2 direction = (mousePosition - (Vector2)transform.position + _playerCenterOffset).normalized;
+        Vector2 center = transform.position + (Vector3)_playerCenterOffset;
+        projectileDestroyerCollider.enabled = true;
+        projectileDestroyerCollider.transform.position = center;
+        projectileDestroyerCollider.size = new Vector2(_player.attackRadius, _player.attackRadius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, _player.attackRadius, _player.enemyLayer);
+        foreach (var collider in hitColliders)
+        {
+            Vector2 directionToCollider = collider.transform.position - transform.position + (Vector3)_playerCenterOffset;
+            if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle)
+            {
+                if (collider.TryGetComponent(out IDamageable damageable))
+                {
+                    if(!_attackAffected.Contains(damageable))
+                    {
+                        damageable.TakeDamage(_player.attackPower);
+                        _attackAffected.Add(damageable);
+                    }
+                }
+            }
+        }
+        Invoke(nameof(DisableProjectileCollider), 0.1f);
+    }
+    
+    private void DisableProjectileCollider()
+    {
+        projectileDestroyerCollider.enabled = false;
+    }
+    
     private void ShowPlayerSprite()
     {
-        _moveSpeed = _moveSpeed - 5;
-
+        _moveSpeed = _player.speed;
+        hitBox.enabled = true; ;
         playerSprite_Top.enabled = true;
         playerSprite_Bottom.enabled = true;
-        playerCollider.enabled = true;
-        isPlayerSpriteVisible = true;
-        isMoving = false;
-        Invoke(nameof(ResumeMoving), 1f);
+        isSkill = false;
     }
-
+    
+    private void CancelSkill()
+    {
+        _animationHandler.CancelSkill();
+    }
+    
     private void EnableAttack()
     {
         isAttackAvailable = true;
@@ -89,20 +165,21 @@ public class PlayerControl : MonoBehaviour
         isMoving = true;
     }
 
+    private void OnDeath()
+    {
+        isDead = true;
+        _animationHandler.PlayDeath();
+    }
 
     private void Move(Vector3 direction)
     {
+        if(isDead) return;
         float scaledMoveSpeed = _moveSpeed * Time.deltaTime;
 
-        Vector3 moveDirection = new Vector3(direction.x, direction.y, direction.z);
+        Vector3 moveDirection = new Vector3(direction.x, direction.y);
         transform.position += moveDirection * scaledMoveSpeed;
-    }
-
-    private void Update()
-    {
-        if (isMoving)
-        {
-            Move(_moveDirection);
-        }
+        _animationHandler.SetMove(moveDirection.magnitude != 0);
+        if(moveDirection.x != 0)
+            _animationHandler.TurnSprite(isSkill ? moveDirection.x < 0 : moveDirection.x > 0);
     }
 }

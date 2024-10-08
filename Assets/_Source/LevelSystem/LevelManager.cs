@@ -12,6 +12,7 @@ namespace LevelSystem
     {
         private const string LEVEL_PROPERTY = "Level";
         [field: SerializeField] public int Level { get; private set; }
+        
         [SerializeField] private float _transitionTime;
         [SerializeField] private float _restartTime;
         

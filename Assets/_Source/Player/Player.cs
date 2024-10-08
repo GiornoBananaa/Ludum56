@@ -11,9 +11,13 @@ public class Player : MonoBehaviour, IDamageable
     public int attackPower = 1;
     public int passiveAttack = 0;
     public int AttackJerk = 1;
-
+    
     public int hp = 1;
+    public float speed = 5f;
+    public float skillSpeed = 8f;
     public float attackRadius = 5f;
+    public float attackAngle = 120f;
+    public LayerMask enemyLayer;
     
     private bool IsDead;
     public Action OnDeath;
