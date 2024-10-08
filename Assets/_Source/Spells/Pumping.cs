@@ -1,59 +1,89 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Pumping : MonoBehaviour
+using UnityEngine.UI;
+public class ObjectSpawner : MonoBehaviour
 {
-    public Player player;
-    public int enemyKillCount = 0;
-    public int requiredKillsToLevelUp = 10;
-    public GameObject levelUpWindow;
+    public int requiredEnemyKills = 10;
+    public GameObject objectToSpawn;
+    public BoxCollider2D objectCollider;
 
-    private void Start()
+    public UnityEngine.UI.Button autoButton;
+    public UnityEngine.UI.Button spellButton;
+    public UnityEngine.UI.Button attackButton;
+
+    public int autoLevel = 0;
+    public int spellLevel = 0;
+    public int attackLevel = 0;
+
+    private int enemyKillCount = 0;
+
+    void Start()
     {
-        //levelUpWindow.SetActive(false);
+        objectToSpawn.SetActive(false);
     }
 
     public void AddKill()
     {
         enemyKillCount++;
-        CheckForLevelUp();
+        CheckForSpawn();
     }
 
-    private void CheckForLevelUp()
+    private void CheckForSpawn()
     {
-        if (enemyKillCount >= requiredKillsToLevelUp)
+        if (enemyKillCount >= requiredEnemyKills)
         {
-            OpenLevelUpWindow();
+            SpawnObject();
         }
     }
 
-    private void OpenLevelUpWindow()
+    private void SpawnObject()
     {
-        levelUpWindow.SetActive(true);
+        objectToSpawn.SetActive(true);
+        OpenUpgradeWindow();
     }
 
-    public void Button1Click()
+    private void OpenUpgradeWindow()
     {
-        player.attackPower++;
-        CloseLevelUpWindow();
     }
 
-    public void Button2Click()
+    public void AutoButtonClick()
     {
-        player.passiveAttack++;
-        CloseLevelUpWindow();
+        if (autoLevel < 4)
+        {
+            autoLevel++;
+            AddCollider();
+            CloseUpgradeWindow();
+        }
     }
 
-    public void Button3Click()
+    public void SpellButtonClick()
     {
-        player.AttackJerk++;
-        CloseLevelUpWindow();
+        if (spellLevel < 4)
+        {
+            spellLevel++;
+            AddCollider();
+            CloseUpgradeWindow();
+        }
     }
 
-    private void CloseLevelUpWindow()
+    public void AttackButtonClick()
     {
-        levelUpWindow.SetActive(false);
-        enemyKillCount = 0;
+        if (attackLevel < 4)
+        {
+            attackLevel++;
+            AddCollider();
+            CloseUpgradeWindow();
+        }
+    }
+
+    private void AddCollider()
+    {
+        objectCollider.size += new Vector2(1, 1);
+    }
+
+    private void CloseUpgradeWindow()
+    {
+
     }
 }

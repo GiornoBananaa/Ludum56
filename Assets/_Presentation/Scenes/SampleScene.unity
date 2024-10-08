@@ -276,6 +276,8 @@ MonoBehaviour:
   enemyKillCount: 0
   requiredKillsToLevelUp: 10
   levelUpWindow: {fileID: 7064614251695954576, guid: 933606578e958f54bb13f4e1e78c8d18, type: 3}
+  objectToAppear: {fileID: 0}
+  objectCollider: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,11 +382,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d35ca4e8201574691b6ea51abf6fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kill: 0
   attackPower: 1
   passiveAttack: 0
   AttackJerk: 1
   hp: 1
   attackRadius: 5
+  hpImage1: {fileID: 0}
+  hpImage2: {fileID: 0}
 --- !u!1 &982707225
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +649,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.050916493, y: -0.1578412}
@@ -776,7 +781,6 @@ MonoBehaviour:
   _moveSpeed: 5
   playerSprite_Top: {fileID: 1371496630}
   playerSprite_Bottom: {fileID: 13249141}
-  playerCollider: {fileID: 1371496634}
 --- !u!50 &1446552975
 Rigidbody2D:
   serializedVersion: 4
@@ -1047,6 +1051,11 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 2424476027741373488}
   _player: {fileID: 753096493}
+  _screenFade: {fileID: 0}
+  _levelResultsView: {fileID: 0}
+  _levelManager: {fileID: 0}
+  _entitySpawner: []
+  _bossCutscene: {fileID: 0}
 --- !u!1 &2424476027741373488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,10 +1105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _launchOnStart: 0
   SpawnerConfig: {fileID: 11400000, guid: 555846772e09cda468935b0fdc28ebeb, type: 2}
-  OnAllEntitiesKilled:
+  <OnAllEntitiesKilled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  OnAllEnemiesSpawned:
+  <OnAllEnemiesSpawned>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3871317123220210652
@@ -1163,10 +1172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideByGrid: 0
-  m_UseMeshPrefab: {fileID: 0}
-  m_CompressBounds: 0
-  m_OverrideVector: {x: 1, y: 1, z: 1}
 --- !u!212 &4218081113725332670
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1231,24 +1236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: a1a47c36062cb9642909dfa771aa2791, type: 2}
 --- !u!61 &4911226712840717866
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1336,10 +1323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!1001 &8299871119294143172
 PrefabInstance:
   m_ObjectHideFlags: 0
