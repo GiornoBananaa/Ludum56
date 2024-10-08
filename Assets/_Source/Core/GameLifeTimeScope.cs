@@ -16,7 +16,8 @@ namespace Core
         [SerializeField] private ScreenFade _screenFade;
         [SerializeField] private LevelResultsView _levelResultsView;
         [SerializeField] private LevelManager _levelManager;
-        [SerializeField] private EntitySpawner _entitySpawner;
+        [SerializeField] private EntitySpawner[] _entitySpawner;
+        [SerializeField] private BossCutscene _bossCutscene;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -36,14 +37,21 @@ namespace Core
             #region UI
             builder.RegisterComponent(_levelResultsView);
             builder.RegisterComponent(_screenFade);
-            builder.RegisterComponent(_entitySpawner);
             #endregion
             
             #region Level
             builder.RegisterComponent(_levelManager);
+            if(_bossCutscene != null)
+                builder.RegisterComponent(_bossCutscene);
             #endregion
             
             #region Enemy
+
+            foreach (var spawner in _entitySpawner)
+            {
+                builder.RegisterComponent(spawner).As<EntitySpawner>();
+            }
+            
             builder.Register<MeleeEnemyFactory>(Lifetime.Scoped);
             builder.Register<ProjectileEnemyFactory>(Lifetime.Scoped);
             builder.Register<EnemyFactory, MeleeEnemyFactory>(Lifetime.Scoped);

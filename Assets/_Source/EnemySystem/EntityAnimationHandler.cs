@@ -29,6 +29,7 @@ namespace EnemySystem
         {
             _animator.Rebind();
             _animator.Update(0f);
+            
         }
     }
 }
