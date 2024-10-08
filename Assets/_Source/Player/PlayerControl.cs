@@ -9,7 +9,6 @@ public class PlayerControl : MonoBehaviour
 
     public SpriteRenderer playerSprite_Top;
     public SpriteRenderer playerSprite_Bottom;
-    public BoxCollider2D playerCollider;
 
     private Vector2 _moveDirection;
 
@@ -45,7 +44,6 @@ public class PlayerControl : MonoBehaviour
             isPlayerSpriteVisible = false;
             playerSprite_Top.enabled = false;
             playerSprite_Bottom.enabled = false;
-            playerCollider.enabled = false;
             isMoving = false;
 
             _moveSpeed = _moveSpeed + 5;
@@ -63,9 +61,9 @@ public class PlayerControl : MonoBehaviour
 
         playerSprite_Top.enabled = true;
         playerSprite_Bottom.enabled = true;
-        playerCollider.enabled = true;
         isPlayerSpriteVisible = true;
         isMoving = false;
+
         Invoke(nameof(ResumeMoving), 1f);
     }
 
@@ -105,4 +103,5 @@ public class PlayerControl : MonoBehaviour
             Move(_moveDirection);
         }
     }
+
 }
