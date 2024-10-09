@@ -1867,17 +1867,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 839347079213864981}
     m_Modifications:
-    - target: {fileID: 157599890888145529, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
+    - target: {fileID: 5464748466750920609, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1385259818676823219}
+    - target: {fileID: 5464748466750920609, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: LoadMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 157599890888145529, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
+    - target: {fileID: 5464748466750920609, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 157599890888145529, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
+    - target: {fileID: 5464748466750920609, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6779040075718668622, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1919,41 +1923,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6796392384435771112, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6796392384435771112, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6810550999119567359, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6810550999119567359, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6810550999119567359, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8430195611539566417, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8430195611539566417, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8609523212953398546, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
       propertyPath: m_Name
       value: Hell
-      objectReference: {fileID: 0}
-    - target: {fileID: 8609523212953398546, guid: a53a021c40f480245a306fbdde5f53ad, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
