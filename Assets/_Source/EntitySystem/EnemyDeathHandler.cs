@@ -18,7 +18,7 @@ namespace EntitySystem
 
         protected virtual async void OnDeath(Entity entity)
         {
-            entity.SoundHandler.PlayDeath();
+            entity.SoundPlayer.PlayDeath();
             entity.AnimationHandler.PlayDeath();
             entity.NavMeshAgent.ResetPath();
             entity.enabled = false;

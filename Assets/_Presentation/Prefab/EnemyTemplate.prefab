@@ -293,7 +293,7 @@ MonoBehaviour:
   <Attacks>k__BackingField: []
   <NavMeshAgent>k__BackingField: {fileID: 7561320226912044809}
   <AnimationHandler>k__BackingField: {fileID: -5704125035640346673}
-  <SoundHandler>k__BackingField: {fileID: -1416790454121232700}
+  <SoundPlayer>k__BackingField: {fileID: -1416790454121232700}
   <Hitbox>k__BackingField: {fileID: 5831548900848865620}
   kill: 0
 --- !u!114 &-5704125035640346673
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1042646c2b74bc09699361a210b3654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 6314174246814093080}
+  AudioSource: {fileID: 6314174246814093080}
 --- !u!114 &7737944871321378381
 MonoBehaviour:
   m_ObjectHideFlags: 0

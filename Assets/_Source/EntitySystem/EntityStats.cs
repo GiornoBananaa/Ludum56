@@ -14,6 +14,6 @@ namespace EntitySystem
         [field: SerializeField] public float StopRange { get; private set; }
         [field: SerializeField] public LayerMask AttackTargetLayer { get; private set; }
         [field: SerializeField] public AttackStat[] AttackStat { get; private set; }
-        [field: SerializeField] public EntitySoundHandler.SoundConfig SoundConfig { get; private set; }
+        [field: SerializeField] public EntitySoundPlayer.EntitySoundConfig EntitySoundConfig { get; private set; }
     }
 }

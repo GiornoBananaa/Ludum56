@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AudioSystem;
 using Core.DataLoadingSystem;
 using EntitySystem;
 using EntitySystem.CombatSystem;
@@ -18,9 +19,10 @@ namespace EnemySystem
         private readonly IEntityMovement _enemyMovement;
         private readonly IEntityCombat _entityCombat;
         private readonly EnemyPoolsContainer _enemyPoolsContainer;
+        private readonly AudioVolumeSetter _audioVolumeSetter;
         
         public EnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, 
-            IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer)
+            IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer, AudioVolumeSetter audioVolumeSetter)
         {
             EntityDataSO enemyData = null;
             List<EntityDataSO> repository = dataRepository.GetItem<EntityDataSO>();
@@ -30,7 +32,6 @@ namespace EnemySystem
                 enemyData = entityData;
                 break;
             }
-            
             if (enemyData == null)
                 enemyData = repository[0];
             
@@ -40,6 +41,7 @@ namespace EnemySystem
             _enemyMovement = enemyMovement;
             _entityCombat = entityCombat;
             _enemyPoolsContainer = poolsContainer;
+            _audioVolumeSetter = audioVolumeSetter;
             poolsContainer.AddPool(EnemyType, Create);
         }
         
@@ -52,7 +54,7 @@ namespace EnemySystem
         {
             Enemy enemy = Object.Instantiate(_prefab);
             enemy.gameObject.SetActive(false);
-            enemy.Construct(_enemyMovement, _entityCombat, new DamageDealer(), _entityStats);
+            enemy.Construct(_enemyMovement, _entityCombat, new DamageDealer(), _entityStats, _audioVolumeSetter);
             _enemyDeathHandler.Subscribe(enemy);
             enemy.Health.OnDeath += e => _enemyPoolsContainer.Return(e);
             return enemy;

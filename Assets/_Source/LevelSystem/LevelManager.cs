@@ -65,7 +65,7 @@ namespace LevelSystem
         
         private async UniTaskVoid LevelNextTransition()
         {
-            _player.OnLevelSwitch?.Invoke(); // call player dig animation
+            _player.OnLevelSwitch?.Invoke();
             await UniTask.WaitForSeconds(_transitionTime);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }

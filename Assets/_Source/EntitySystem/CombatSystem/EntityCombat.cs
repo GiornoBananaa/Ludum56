@@ -22,7 +22,7 @@ namespace EntitySystem.CombatSystem
                 entityAttack.Attack(collider.transform, target);
                 entity.AnimationHandler.SetLongAttack(entityAttack.Stats.LongAttack);
                 entity.AnimationHandler.PlayAttack(attackIndex);
-                entity.SoundHandler.PlayAttack(attackIndex);
+                entity.SoundPlayer.PlayAttack(attackIndex);
             }
         }
         

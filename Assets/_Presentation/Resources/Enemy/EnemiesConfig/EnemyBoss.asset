@@ -30,8 +30,12 @@ MonoBehaviour:
       AttackRange: 100
       AttackCooldown: 5
       LongAttack: 1
-    <SoundConfig>k__BackingField:
-      Death: {fileID: 0}
+    <EntitySoundConfig>k__BackingField:
+      Death:
+        Clip: {fileID: 0}
+        MaxVolume: 0
       Attacks:
-      - {fileID: 0}
-      - {fileID: 0}
+      - Clip: {fileID: 0}
+        MaxVolume: 0
+      - Clip: {fileID: 0}
+        MaxVolume: 0

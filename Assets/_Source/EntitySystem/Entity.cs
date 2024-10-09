@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Core.DataLoadingSystem;
+using AudioSystem;
 using EnemySystem;
 using EntitySystem.CombatSystem;
 using EntitySystem.MovementSystem;
@@ -14,7 +13,7 @@ namespace EntitySystem
         [field: SerializeField] public EntityAttack[] Attacks { get; private set; }
         [field: SerializeField] public NavMeshAgent NavMeshAgent { get; private set; }
         [field: SerializeField] public EntityAnimationHandler AnimationHandler { get; private set; }
-        [field: SerializeField] public EntitySoundHandler SoundHandler { get; private set; }
+        [field: SerializeField] public EntitySoundPlayer SoundPlayer { get; private set; }
         [field: SerializeField] public Collider2D Hitbox { get; private set; }
         
         public HashSet<EntityAttack> ActiveAttacks { get; private set; }
@@ -28,11 +27,12 @@ namespace EntitySystem
         private bool _entityStarted;
         
         public void Construct(IEntityMovement entityMovement, IEntityCombat entityCombat, 
-            DamageDealer damageDealer, EntityStats entityStats)
+            DamageDealer damageDealer, EntityStats entityStats, AudioVolumeSetter audioVolumeSetter)
         {
             Stats = entityStats;
             Health = new Health(this, Stats.Health);
-            SoundHandler.SetSoundConfig(Stats.SoundConfig);
+            SoundPlayer.SetSoundConfig(Stats.EntitySoundConfig);
+            audioVolumeSetter.AddAudioPlayer(SoundPlayer);
             ActiveAttacks = new HashSet<EntityAttack>();
             DamageDealer = damageDealer;
             _movement = entityMovement;

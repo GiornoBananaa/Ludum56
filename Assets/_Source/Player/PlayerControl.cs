@@ -109,11 +109,11 @@ public class PlayerControl : MonoBehaviour
         projectileDestroyerCollider.transform.position = attackCenter;
         projectileDestroyerCollider.size = new Vector2(_player.attackRadius, _player.attackRadius);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, _player.attackRadius, _player.enemyLayer);
-        
         foreach (var collider in hitColliders)
         {
             Vector2 directionToCollider = collider.transform.position - transform.position + (Vector3)_playerCenterOffset;
-            if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle)
+            if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle 
+               && Vector2.Distance(transform.position, collider.transform.position) <= _player.attackRadius)
             {
                 if (collider.TryGetComponent(out IDamageable damageable))
                 {

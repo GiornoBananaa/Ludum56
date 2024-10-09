@@ -1,4 +1,5 @@
-﻿using Core.DataLoadingSystem;
+﻿using AudioSystem;
+using Core.DataLoadingSystem;
 using EntitySystem;
 using EntitySystem.CombatSystem;
 using EntitySystem.MovementSystem;
@@ -10,8 +11,8 @@ namespace EnemySystem
     {
         public override EntityType EnemyType => EntityType.MeleeEnemy1;
 
-        
-        public MeleeEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer)
+
+        public MeleeEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer, AudioVolumeSetter audioVolumeSetter) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer, audioVolumeSetter)
         {
         }
     }
@@ -20,8 +21,8 @@ namespace EnemySystem
     {
         public override EntityType EnemyType => EntityType.MeleeEnemy2;
 
-        
-        public SecondMeleeEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer)
+
+        public SecondMeleeEnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, IEntityMovement enemyMovement, IEntityCombat entityCombat, EnemyPoolsContainer poolsContainer, AudioVolumeSetter audioVolumeSetter) : base(dataRepository, enemyDeathHandler, enemyMovement, entityCombat, poolsContainer, audioVolumeSetter)
         {
         }
     }

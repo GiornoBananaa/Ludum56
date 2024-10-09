@@ -1,3 +1,4 @@
+using AudioSystem;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -63,6 +64,10 @@ namespace Core
             builder.Register<IEntityCombat, EntityCombat>(Lifetime.Singleton);
             builder.Register<EnemyPoolsContainer>(Lifetime.Singleton);
             builder.Register<EnemyDeathHandler>(Lifetime.Singleton);
+            #endregion
+            
+            #region Audio
+            builder.Register<AudioVolumeSetter>(Lifetime.Singleton);
             #endregion
         }
         
