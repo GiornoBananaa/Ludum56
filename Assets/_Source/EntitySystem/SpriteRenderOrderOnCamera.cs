@@ -24,12 +24,25 @@ namespace EntitySystem
 
         private void SetSortingOrder()
         {
-            Vector2 screenPosition = _camera.WorldToScreenPoint(transform.position);
-            _spriteRenderer.sortingOrder = (int)Mathf.Lerp(MIN_LAYER,MAX_LAYER, (_camera.pixelHeight - screenPosition.y) / _camera.pixelHeight);
+            SetSortingOrder(_spriteRenderer);
             for (int i = 0; i < _spritesOnTop.Length; i++)
             {
-                _spritesOnTop[i].sortingOrder = _spriteRenderer.sortingOrder + i + 1;
+                if(_spritesOnTop[i].transform.position.y > transform.position.y)
+                {
+                    _spritesOnTop[i].sortingOrder = _spriteRenderer.sortingOrder + i + 1;
+                }
+                else
+                {
+                    SetSortingOrder(_spritesOnTop[i]);
+                }
             }
+        }
+        
+        private void SetSortingOrder(SpriteRenderer spriteRenderer)
+        {
+            Vector2 screenPosition = _camera.WorldToScreenPoint(spriteRenderer.transform.position);
+            var pixelHeight = _camera.pixelHeight;
+            spriteRenderer.sortingOrder = (int)Mathf.Lerp(MIN_LAYER, MAX_LAYER, (pixelHeight - screenPosition.y) / pixelHeight);
         }
     }
 }

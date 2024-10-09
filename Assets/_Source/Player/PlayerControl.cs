@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using EntitySystem;
 using EntitySystem.CombatSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +12,9 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
+    [SerializeField] private ParticleSystem _attackParticle;
     [SerializeField] private PlayerAudioPlayer _audioPlayer;
+    [SerializeField] private float _attackTime = 1;
     
     public SpriteRenderer playerSprite_Top;
     public SpriteRenderer playerSprite_Bottom;
@@ -20,7 +24,6 @@ public class PlayerControl : MonoBehaviour
     private readonly Vector2 _playerCenterOffset = new (0,0);
     private HashSet<IDamageable> _attackAffected = new HashSet<IDamageable>();
     private Vector2 _moveDirection;
-    private Camera _camera;
     private float _moveSpeed;
     private bool dealDamage;
     private bool isDead;
@@ -31,11 +34,11 @@ public class PlayerControl : MonoBehaviour
 
     private void Awake()
     {
-        _camera = Camera.main;
         _moveSpeed = _player.speed;
         projectileDestroyerCollider.enabled = false;
         _player.OnDeath += OnDeath;
         _player.OnLevelSwitch += OnLevelSwitch;
+        SetAttackParticleParameters();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -49,11 +52,11 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (isAttackAvailable && !isSkill)
+        if (isAttackAvailable && !isSkill && !isDead)
         {
             isAttackAvailable = false;
             _animationHandler.PlayAttack();
-            DealDamage();
+            SetAttackParticleParameters();
             _attackAffected.Clear();
             Invoke(nameof(EnableAttack), 1.57f);
         }
@@ -61,7 +64,7 @@ public class PlayerControl : MonoBehaviour
 
     public void OnSkills(InputAction.CallbackContext context)
     {
-        if (isSkillAvailable)
+        if (isSkillAvailable && !isDead)
         {
             isSkillAvailable = false;
             isSkill = true;
@@ -69,6 +72,7 @@ public class PlayerControl : MonoBehaviour
             
             _moveSpeed = _player.skillSpeed;
             _animationHandler.PlaySkill();
+            
             Invoke(nameof(ShowPlayerSprite), 3f); // ����� �����������
             Invoke(nameof(CancelSkill), 2f); // ����� �����������
             Invoke(nameof(EnableSkills), 6f); // ����� �����������
@@ -83,56 +87,69 @@ public class PlayerControl : MonoBehaviour
         {
             Move(_moveDirection);
         }
-
+        
         if (dealDamage)
         {
             DealDamage();
         }
+        
     }
     
     public void EnableDamageDealer()
     {
         dealDamage = true;
+        _attackParticle.Play();
+        projectileDestroyerCollider.enabled = true;
     }
     
     public void DisableDamageDealer()
     {
         dealDamage = false;
+        projectileDestroyerCollider.enabled = false;
+    }
+    
+    private void SetAttackParticleParameters()
+    {
+        var attackParticleMain = _attackParticle.main;
+        attackParticleMain.startLifetimeMultiplier = _attackTime;
+        attackParticleMain.startSpeedMultiplier = _player.attackRadius/_attackTime;
+        attackParticleMain.startSizeMultiplier = 2*_player.attackRadius * Mathf.Tan((180-_player.attackAngle)/4);
     }
 
-    private void DealDamage()
+    private void DealDamage(GameObject enemy)
+    {
+        if (enemy.TryGetComponent(out IDamageable damageable))
+        {
+            if(!_attackAffected.Contains(damageable))
+            {
+                _player.killedEnemies++;
+                damageable.TakeDamage(_player.attackPower);
+                _attackAffected.Add(damageable);
+            }
+        }
+    }
+    
+    public void DealDamage()
     {
         if(isDead) return;
         Vector2 screenCenter = new Vector2((float)Screen.width/2, (float)Screen.height/2);
         Vector2 direction = (Mouse.current.position.ReadValue() - screenCenter).normalized;
-        Vector2 attackCenter = (Vector2)transform.position + direction * _player.attackRadius/2;
         
-        projectileDestroyerCollider.enabled = true;
+        Vector2 attackCenter = (Vector2)transform.position + direction * _player.attackRadius/2;
         projectileDestroyerCollider.transform.position = attackCenter;
         projectileDestroyerCollider.size = new Vector2(_player.attackRadius, _player.attackRadius);
+        
+        _attackParticle.transform.parent.LookAt2D((Vector2)transform.position + direction);
+        
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, _player.attackRadius, _player.enemyLayer);
         foreach (var collider in hitColliders)
         {
             Vector2 directionToCollider = collider.transform.position - transform.position + (Vector3)_playerCenterOffset;
             if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle)
             {
-                if (collider.TryGetComponent(out IDamageable damageable))
-                {
-                    if(!_attackAffected.Contains(damageable))
-                    {
-                        _player.killedEnemies++;
-                        damageable.TakeDamage(_player.attackPower);
-                        _attackAffected.Add(damageable);
-                    }
-                }
+                DealDamage(collider.gameObject);
             }
         }
-        Invoke(nameof(DisableProjectileCollider), 0.1f);
-    }
-    
-    private void DisableProjectileCollider()
-    {
-        projectileDestroyerCollider.enabled = false;
     }
     
     private void ShowPlayerSprite()
