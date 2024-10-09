@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace EnemySystem
+namespace EntitySystem
 {
     public class EntityAnimationHandler: MonoBehaviour
     {

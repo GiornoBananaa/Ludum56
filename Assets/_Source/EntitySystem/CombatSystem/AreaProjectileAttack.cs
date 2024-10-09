@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using EnemySystem;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Utils;
 using Random = UnityEngine.Random;
 
 namespace EntitySystem.CombatSystem

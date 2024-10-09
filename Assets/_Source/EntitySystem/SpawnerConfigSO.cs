@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using EnemySystem;
+using UnityEngine;
 
-namespace EnemySystem
+namespace EntitySystem
 {
     [CreateAssetMenu(fileName = "SpawnerConfig", menuName = "Entity/SpawnerConfig")]
     public class SpawnerConfigSO : ScriptableObject

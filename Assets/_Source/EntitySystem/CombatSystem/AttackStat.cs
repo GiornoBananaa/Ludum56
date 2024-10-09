@@ -9,7 +9,6 @@ namespace EntitySystem.CombatSystem
         public float AttackRange = 1;
         public float AttackCooldown = 1;
         public int Weight { get; private set; } = 1;
-        public int MaxTargetsCount { get; private set; } = 999;
         public bool LongAttack;
     }
 }

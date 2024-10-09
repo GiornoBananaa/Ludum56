@@ -1,9 +1,8 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
-namespace LevelSystem
+namespace Menu
 {
     public class ScreenFade: MonoBehaviour
     {

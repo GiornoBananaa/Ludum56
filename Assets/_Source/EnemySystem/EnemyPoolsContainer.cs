@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using EnemySystem;
-using EntitySystem.MovementSystem;
-using UnityEngine;
+using EntitySystem;
 using UnityEngine.Pool;
-using VContainer;
 
-namespace EntitySystem
+namespace EnemySystem
 {
     public class EnemyPoolsContainer
     {

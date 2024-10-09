@@ -44,10 +44,4 @@ namespace AudioSystem
             AudioSource.volume = Volume * CurrentSound.MaxVolume;
         }
     }
-
-    public interface IAudioPlayer
-    {
-        AudioType AudioType { get; }
-        void SetVolume(float volume);
-    }
 }

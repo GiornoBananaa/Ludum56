@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AudioSystem;
-using EnemySystem;
 using EntitySystem.CombatSystem;
 using EntitySystem.MovementSystem;
 using UnityEngine;

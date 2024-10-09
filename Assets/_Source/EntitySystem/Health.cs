@@ -1,6 +1,5 @@
 ﻿using System;
 using EntitySystem.CombatSystem;
-using UnityEngine;
 
 namespace EntitySystem
 {

@@ -8,7 +8,7 @@ using EntitySystem;
 using EntitySystem.CombatSystem;
 using EntitySystem.MovementSystem;
 using LevelSystem;
-using UnityEngine.Serialization;
+using Menu;
 
 namespace Core
 {
@@ -60,12 +60,12 @@ namespace Core
                 builder.RegisterComponent(spawner).As<EntitySpawner>();
             }
             
-            builder.Register<MeleeEnemyFactory>(Lifetime.Scoped);
-            builder.Register<ProjectileEnemyFactory>(Lifetime.Scoped);
-            builder.Register<EnemyFactory, MeleeEnemyFactory>(Lifetime.Scoped);
-            builder.Register<EnemyFactory, SecondMeleeEnemyFactory>(Lifetime.Scoped);
-            builder.Register<EnemyFactory, ProjectileEnemyFactory>(Lifetime.Scoped);
-            builder.Register<EnemyFactory, SecondProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<BrownMeleeEnemyFactory>(Lifetime.Scoped);
+            builder.Register<RedProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, BrownMeleeEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, PurpleMeleeEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, RedProjectileEnemyFactory>(Lifetime.Scoped);
+            builder.Register<EnemyFactory, BlueProjectileEnemyFactory>(Lifetime.Scoped);
             builder.Register<EnemyFactory, BossEnemyFactory>(Lifetime.Scoped);
             builder.Register<IEntityMovement, EnemyMovement>(Lifetime.Singleton);
             builder.Register<IEntityCombat, EntityCombat>(Lifetime.Singleton);

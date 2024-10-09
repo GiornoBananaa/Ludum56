@@ -1,8 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
-using VContainer;
+using EntitySystem;
 
-namespace EntitySystem
+namespace EnemySystem
 {
     public class EnemyDeathHandler
     {

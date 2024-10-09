@@ -2,7 +2,7 @@
 using AudioSystem;
 using AudioType = AudioSystem.AudioType;
 
-namespace EnemySystem
+namespace EntitySystem
 {
     public class EntitySoundPlayer: SingleSourceAudioPlayer
     {

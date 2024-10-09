@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemySystem
+namespace EntitySystem
 {
     public abstract class EntitySpawner : MonoBehaviour
     {
