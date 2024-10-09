@@ -89,7 +89,7 @@ MonoBehaviour:
   hp: 1
   speed: 5
   skillSpeed: 8
-  attackRadius: 2
+  attackRadius: 1.8
   attackAngle: 90
   enemyLayer:
     serializedVersion: 2

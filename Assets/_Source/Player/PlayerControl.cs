@@ -114,8 +114,7 @@ public class PlayerControl : MonoBehaviour
         foreach (var collider in hitColliders)
         {
             Vector2 directionToCollider = collider.transform.position - transform.position + (Vector3)_playerCenterOffset;
-            if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle 
-               && Vector2.Distance(transform.position, collider.transform.position) <= _player.attackRadius)
+            if(Vector2.Angle(directionToCollider, direction) < _player.attackAngle)
             {
                 if (collider.TryGetComponent(out IDamageable damageable))
                 {

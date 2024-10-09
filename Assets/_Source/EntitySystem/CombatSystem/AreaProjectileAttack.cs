@@ -78,11 +78,11 @@ namespace EntitySystem.CombatSystem
             _entityAnimationHandler.SetAttack(true);
             for (int i = 0; i < _configs[_configIndex].ShotsCount; i++)
             {
+                if(Entity.Health.HP <= 0) break;
                 foreach (var particle in _configs[_configIndex].ParticleSystem)
                 {
                     particle.Play();
                 }
-
                 await UniTask.WaitForSeconds(_configs[_configIndex].ShotsGapTime, cancellationToken: cancellationToken);
             }
             _entityAnimationHandler.SetAttack(false);
