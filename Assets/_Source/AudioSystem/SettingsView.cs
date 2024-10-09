@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
@@ -34,6 +35,11 @@ namespace AudioSystem
         private void ChangeSoundEffectVolume(float volume)
         {
             _audioVolumeSetter.SetVolume(AudioType.SoundEffect, volume);
+        }
+
+        private void OnDisable()
+        {
+            _audioVolumeSetter.SaveVolumeData();
         }
     }
 }

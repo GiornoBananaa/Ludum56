@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 3904821599287102676}
   - component: {fileID: 7710771851564159639}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: LevelSwitcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

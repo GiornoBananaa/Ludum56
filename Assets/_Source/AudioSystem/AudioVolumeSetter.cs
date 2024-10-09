@@ -22,7 +22,6 @@ namespace AudioSystem
                 }
             }
             LoadVolumeData();
-            Debug.Log(9);
         }
     
         private Dictionary<AudioType, float> _volume;

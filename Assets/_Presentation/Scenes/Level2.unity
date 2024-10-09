@@ -957,6 +957,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSceneCore
       objectReference: {fileID: 0}
+    - target: {fileID: 7710771851564159639, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: <Level>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

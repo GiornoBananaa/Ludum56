@@ -47,6 +47,7 @@ namespace Core
             #endregion
             
             #region Level
+            builder.Register<LevelCounter>(Lifetime.Singleton);
             builder.RegisterComponent(_levelSwitcher);
             if(_bossCutscene != null)
                 builder.RegisterComponent(_bossCutscene);

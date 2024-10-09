@@ -1,5 +1,6 @@
 ﻿using AudioSystem;
 using Core.DataLoadingSystem;
+using LevelSystem;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,6 +9,7 @@ namespace Core
 {
     public class MainMenuLifeTimeScope : LifetimeScope
     {
+        [SerializeField] private MainMenu _mainMenu;
         [SerializeField] private MusicPlayer _musicPlayer;
         [SerializeField] private ButtonClickPlayer[] _buttonClickPlayers;
         [SerializeField] private SettingsView _settings;
@@ -23,8 +25,13 @@ namespace Core
             builder.RegisterInstance(dataRepository);
             #endregion
 
+            #region Levels
+            builder.Register<LevelCounter>(Lifetime.Singleton);
+            #endregion
+            
             #region UI
             builder.RegisterComponent(_settings);
+            builder.RegisterComponent(_mainMenu);
             #endregion
             
             #region Audio

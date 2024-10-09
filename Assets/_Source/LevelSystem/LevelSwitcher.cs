@@ -11,7 +11,6 @@ namespace LevelSystem
 {
     public class LevelSwitcher : MonoBehaviour
     {
-        private const string LEVEL_PROPERTY = "Level";
         [field: SerializeField] public int Level { get; private set; }
         
         [SerializeField] private float _transitionTime;
@@ -20,21 +19,23 @@ namespace LevelSystem
         private LevelResultsView _levelResultsView;
         private Player _player;
         private MusicPlayer _musicPlayer;
-
+        private LevelCounter _levelCounter;
+        
         [Inject]
-        public void Construct(Player player, LevelResultsView levelResultsView, MusicPlayer musicPlayer)
+        public void Construct(Player player, LevelResultsView levelResultsView, MusicPlayer musicPlayer, LevelCounter levelCounter)
         {
             _player = player;
             _player.OnDeath += OnPlayerDeath;
             _levelResultsView = levelResultsView;
             _musicPlayer = musicPlayer;
+            _levelCounter = levelCounter;
         }
-        
-        private void Awake()
+
+        private void Start()
         {
-            SaveData();
+            _levelCounter.SetLevel(Level);
         }
-        
+
         public void NextLevel()
         {
             LevelNextTransition();
@@ -43,12 +44,6 @@ namespace LevelSystem
         public void RestartLevel()
         {
             RestartTransition();
-        }
-        
-        public void ResetLevelData()
-        {
-            PlayerPrefs.SetInt(LEVEL_PROPERTY, 0);
-            PlayerPrefs.Save();
         }
 
         public async void EndLevel()
@@ -79,13 +74,6 @@ namespace LevelSystem
             _levelResultsView.HideResults();
             await UniTask.WaitForSeconds(_restartTime);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        
-        private void SaveData()
-        {
-            int level = PlayerPrefs.GetInt(LEVEL_PROPERTY, 0);
-             PlayerPrefs.SetInt(LEVEL_PROPERTY, PlayerPrefs.GetInt(LEVEL_PROPERTY, level > Level ? level : Level));
-             PlayerPrefs.Save();
         }
     }
 }
