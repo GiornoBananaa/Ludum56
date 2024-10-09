@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EntitySystem.CombatSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -26,9 +27,12 @@ public class Player : MonoBehaviour, IDamageable
     public Action OnDeath;
     public Action OnLevelSwitch;
 
+    public Image hpImage1;
+    public Image hpImage2;
+
     private void FixedUpdate()
     {
-        if(kill && hp > 0)
+        if (kill && hp > 0)
             TakeDamage(100);
     }
 
@@ -36,10 +40,19 @@ public class Player : MonoBehaviour, IDamageable
     {
         hp -= damage;
         
-        if(!IsDead && hp <= 0)
+        if (!IsDead && hp <= 0)
         {
             IsDead = true;
             OnDeath?.Invoke();
+        }
+
+        if (hp < 1)
+        {
+            hpImage1.enabled = false;
+        }
+        else
+        {
+            hpImage1.enabled = true;
         }
     }
 }

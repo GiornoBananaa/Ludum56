@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6151381683626756588, guid: 19de992e9bb96864785c623997034820, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.7000275
+      value: 7.700012
       objectReference: {fileID: 0}
     - target: {fileID: 7909411104060803665, guid: 19de992e9bb96864785c623997034820, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -231,6 +231,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19de992e9bb96864785c623997034820, type: 3}
+--- !u!114 &367285921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2482649402707843415, guid: 19de992e9bb96864785c623997034820, type: 3}
+  m_PrefabInstance: {fileID: 367285920}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &449730715
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +435,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0.05, y: -0.08}
   m_Size: {x: 0.6, y: 0.5}
   m_Direction: 1
+--- !u!114 &1394607173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4998180593052736053, guid: 19de992e9bb96864785c623997034820, type: 3}
+  m_PrefabInstance: {fileID: 367285920}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2057622790 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7718922812445388403, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
@@ -545,6 +567,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 787738446034929327, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: hpImage1
+      value: 
+      objectReference: {fileID: 1394607173}
+    - target: {fileID: 787738446034929327, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: hpImage2
+      value: 
+      objectReference: {fileID: 367285921}
     - target: {fileID: 787738446034929327, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
       propertyPath: attackAngle
       value: 90
