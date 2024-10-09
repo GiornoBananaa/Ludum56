@@ -1,6 +1,5 @@
 ﻿using System;
 using AudioSystem;
-using UnityEngine;
 using AudioType = AudioSystem.AudioType;
 
 namespace EnemySystem

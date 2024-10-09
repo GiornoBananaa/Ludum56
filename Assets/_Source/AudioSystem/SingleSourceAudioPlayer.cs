@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace AudioSystem
 {
@@ -10,7 +9,7 @@ namespace AudioSystem
         public class SoundConfig
         {
             public AudioClip Clip;
-            public float MaxVolume;
+            public float MaxVolume = 1;
         }
         
         [SerializeField] protected AudioSource AudioSource;

@@ -22,9 +22,15 @@ namespace AudioSystem
                 }
             }
             LoadVolumeData();
+            Debug.Log(9);
         }
     
         private Dictionary<AudioType, float> _volume;
+        
+        public float GetVolume(AudioType audioType)
+        {
+            return _volume[audioType];
+        }
         
         public void AddAudioPlayer(IAudioPlayer audioPlayer)
         {

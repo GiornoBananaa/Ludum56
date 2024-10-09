@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AudioSystem;
 using Cysharp.Threading.Tasks;
 using EnemySystem;
 using UnityEngine;
@@ -8,7 +9,7 @@ using VContainer;
 
 namespace LevelSystem
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelSwitcher : MonoBehaviour
     {
         private const string LEVEL_PROPERTY = "Level";
         [field: SerializeField] public int Level { get; private set; }
@@ -18,13 +19,15 @@ namespace LevelSystem
         
         private LevelResultsView _levelResultsView;
         private Player _player;
-        
+        private MusicPlayer _musicPlayer;
+
         [Inject]
-        public void Construct(Player player, LevelResultsView levelResultsView)
+        public void Construct(Player player, LevelResultsView levelResultsView, MusicPlayer musicPlayer)
         {
             _player = player;
             _player.OnDeath += OnPlayerDeath;
             _levelResultsView = levelResultsView;
+            _musicPlayer = musicPlayer;
         }
         
         private void Awake()
@@ -56,6 +59,7 @@ namespace LevelSystem
         
         private async void OnPlayerDeath()
         {
+            _musicPlayer.Play(MusicType.Death);
             await UniTask.WaitForSeconds(2);
             
             _levelResultsView.OnRestart.AddListener(RestartLevel);

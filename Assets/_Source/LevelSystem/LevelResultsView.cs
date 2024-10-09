@@ -13,7 +13,7 @@ namespace LevelSystem
         [SerializeField] private CanvasGroup _canvasGroup;
         
         private ScreenFade _screenFade;
-        private LevelManager _levelManager;
+        private LevelSwitcher _levelSwitcher;
         
         public Button.ButtonClickedEvent OnRestart => _resetButton.onClick;
         

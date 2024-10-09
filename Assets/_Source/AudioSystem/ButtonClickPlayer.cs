@@ -1,32 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AudioSystem
 {
     public class ButtonClickPlayer : SingleSourceAudioPlayer
     {
-        [SerializeField] private Button _button;
-        [SerializeField] private AudioClip _clickSound;
-        [SerializeField] private AudioSource _audioSource;
-        private float _defaultVolume;
+        [SerializeField] private Button[] _buttons;
+        [SerializeField] private SoundConfig _clickSound;
         
         public override AudioType AudioType => AudioType.SoundEffect;
             
         private void Awake()
         {
-            _defaultVolume = _audioSource.volume;
-            _button.onClick.AddListener(PlayClick);
-            _audioSource.clip = _clickSound;
-        }
-            
-        public void SetVolume(float volume)
-        {
-            _audioSource.volume = _defaultVolume * volume;
+            foreach (var button in _buttons)
+            {
+                button.onClick.AddListener(PlayClick);
+            }
         }
 
         private void PlayClick()
         {
-            _audioSource.Play();
+            PlaySound(_clickSound);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace EntitySystem.CombatSystem
                 _lastPlayerPosition = targetTransform.position;
             }
 
-            Vector3 lookAt = _predictPosition ? transform.position + (Vector3)_projectileDirection : targetTransform.position;
+            Vector3 lookAt = _predictPosition && _projectileDirection != default ? transform.position + (Vector3)_projectileDirection : targetTransform.position;
             _attackEffect.transform.LookAt2D(lookAt);
             _particleSystem.transform.LookAt(lookAt, Vector3.forward);
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpawnerLevel1Config
   m_EditorClassIdentifier: 
   <SpawnCooldown>k__BackingField: 1
-  <SpawnRadius>k__BackingField: 10
+  <SpawnRadius>k__BackingField: 15
   <Endless>k__BackingField: 0
   <EntityCount>k__BackingField: 20
   <EnemySpawnerConfigs>k__BackingField:

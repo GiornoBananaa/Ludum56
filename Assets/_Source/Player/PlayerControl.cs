@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private PlayerAnimationHandler _animationHandler;
+    [SerializeField] private PlayerAudioPlayer _audioPlayer;
     
     public SpriteRenderer playerSprite_Top;
     public SpriteRenderer playerSprite_Bottom;
@@ -101,6 +102,7 @@ public class PlayerControl : MonoBehaviour
 
     private void DealDamage()
     {
+        if(isDead) return;
         Vector2 screenCenter = new Vector2((float)Screen.width/2, (float)Screen.height/2);
         Vector2 direction = (Mouse.current.position.ReadValue() - screenCenter).normalized;
         Vector2 attackCenter = (Vector2)transform.position + direction * _player.attackRadius/2;
@@ -173,6 +175,7 @@ public class PlayerControl : MonoBehaviour
         isDead = true;
         hitBox.enabled = false;
         _animationHandler.PlayDeath();
+        _audioPlayer.PlayDeath();
     }
     
     private void OnLevelSwitch()
