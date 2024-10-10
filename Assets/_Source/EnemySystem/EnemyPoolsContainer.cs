@@ -7,7 +7,7 @@ namespace EnemySystem
 {
     public class EnemyPoolsContainer
     {
-        private readonly Dictionary<EntityType, ObjectPool<Entity>> _enemyPools = new Dictionary<EntityType, ObjectPool<Entity>>();
+        private readonly Dictionary<EntityType, ObjectPool<Entity>> _enemyPools = new();
         
         public void AddPool(EntityType entityType, Func<Entity> create)
         {
@@ -16,13 +16,13 @@ namespace EnemySystem
         
         public Entity Get(EntityType entityType)
         {
-            var e = _enemyPools[entityType].Get();
-            return e;
+            var enemy = _enemyPools[entityType].Get();
+            return enemy;
         }
         
-        public Entity Return(Entity enemy)
+        public void Return(Entity enemy)
         {
-            return _enemyPools[enemy.Stats.EntityType].Get();
+            _enemyPools[enemy.Stats.EntityType].Release(enemy);
         }
     }
 }

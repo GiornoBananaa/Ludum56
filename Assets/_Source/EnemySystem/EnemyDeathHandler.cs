@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using EntitySystem;
+using UnityEngine;
 
 namespace EnemySystem
 {
@@ -23,7 +24,7 @@ namespace EnemySystem
             entity.enabled = false;
             entity.TurnOffCollision();
             await UniTask.WaitForSeconds(entity.AnimationHandler.DeathAnimationTime);
-            if(entity==null) return;
+            if(entity == null) return;
             entity.gameObject.SetActive(false);
         }
     }

@@ -18,10 +18,10 @@ MonoBehaviour:
   <EntityCount>k__BackingField: 9999
   <EnemySpawnerConfigs>k__BackingField:
   - EnemyType: 0
-    Weight: 1
+    Weight: 4
   - EnemyType: 1
-    Weight: 1
+    Weight: 4
   - EnemyType: 2
-    Weight: 1
+    Weight: 3
   - EnemyType: 3
-    Weight: 1
+    Weight: 3

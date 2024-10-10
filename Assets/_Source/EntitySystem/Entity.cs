@@ -49,12 +49,6 @@ namespace EntitySystem
             OnEntityStart();
         }
 
-        private void OnEnable()
-        {
-            if (_entityStarted)
-                Reset();
-        }
-
         protected virtual void OnEntityStart() { }
 
         private void Update()
@@ -76,6 +70,7 @@ namespace EntitySystem
             Health.Reset();
             AnimationHandler.Reset();
             Hitbox.enabled = true;
+            _movement.Reset(this);
         }
     }
 }

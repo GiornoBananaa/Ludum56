@@ -117,6 +117,7 @@ namespace EnemySystem
             Entity enemy = _enemyPoolsContainer.Get(enemySpawnConfig.EnemyType);
             enemy.transform.rotation = Quaternion.identity;
             enemy.gameObject.SetActive(true);
+            enemy.Reset();
             enemy.transform.position = ChooseRandomPositionOnCircle();
             _entitiesSpawned++;
             _spawnedEnemies.Add(enemy);

@@ -22,5 +22,11 @@ namespace EnemySystem
             Vector2 destination = _player.position + (Vector3)offset;
             entity.NavMeshAgent.SetDestination(destination);
         }
+
+        public void Reset(Entity entity)
+        {
+            if(entity.NavMeshAgent.isOnNavMesh)
+                entity.NavMeshAgent.ResetPath();
+        }
     }
 }
