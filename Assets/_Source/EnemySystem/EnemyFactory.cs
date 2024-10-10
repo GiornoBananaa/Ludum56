@@ -19,7 +19,6 @@ namespace EnemySystem
         private readonly EnemyDeathHandler _enemyDeathHandler;
         private readonly IEntityMovement _enemyMovement;
         private readonly IEntityCombat _entityCombat;
-        private readonly EnemyPoolsContainer _enemyPoolsContainer;
         private readonly AudioVolumeSetter _audioVolumeSetter;
         
         public EnemyFactory(IRepository<ScriptableObject> dataRepository, EnemyDeathHandler enemyDeathHandler, 
@@ -41,7 +40,6 @@ namespace EnemySystem
             _entityStats = enemyData.EntityStats;
             _enemyMovement = enemyMovement;
             _entityCombat = entityCombat;
-            _enemyPoolsContainer = poolsContainer;
             _audioVolumeSetter = audioVolumeSetter;
             poolsContainer.AddPool(EnemyType, Create);
         }
@@ -57,7 +55,6 @@ namespace EnemySystem
             enemy.gameObject.SetActive(false);
             enemy.Construct(_enemyMovement, _entityCombat, new DamageDealer(), _entityStats, _audioVolumeSetter);
             _enemyDeathHandler.Subscribe(enemy);
-            enemy.Health.OnDeath += e => _enemyPoolsContainer.Return(e);
             return enemy;
         }
     }

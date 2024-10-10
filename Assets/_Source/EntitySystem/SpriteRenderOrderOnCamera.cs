@@ -27,7 +27,7 @@ namespace EntitySystem
             SetSortingOrder(_spriteRenderer);
             for (int i = 0; i < _spritesOnTop.Length; i++)
             {
-                if(_spritesOnTop[i].transform.position.y > transform.position.y)
+                if(_spritesOnTop[i].transform.position.y >= transform.position.y)
                 {
                     _spritesOnTop[i].sortingOrder = _spriteRenderer.sortingOrder + i + 1;
                 }

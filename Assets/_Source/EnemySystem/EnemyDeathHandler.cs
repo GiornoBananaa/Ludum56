@@ -6,6 +6,13 @@ namespace EnemySystem
 {
     public class EnemyDeathHandler
     {
+        private EnemyPoolsContainer _enemyPoolsContainer;
+        
+        public EnemyDeathHandler(EnemyPoolsContainer enemyPoolsContainer)
+        {
+            _enemyPoolsContainer = enemyPoolsContainer;
+        }
+        
         public void Subscribe(Entity entity)
         {
             entity.Health.OnDeath += OnDeath;
@@ -26,6 +33,7 @@ namespace EnemySystem
             await UniTask.WaitForSeconds(entity.AnimationHandler.DeathAnimationTime);
             if(entity == null) return;
             entity.gameObject.SetActive(false);
+            _enemyPoolsContainer.Return(entity);
         }
     }
 }
