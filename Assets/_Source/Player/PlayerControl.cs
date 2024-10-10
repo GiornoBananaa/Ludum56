@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private ParticleSystem _attackParticle;
     [SerializeField] private PlayerAudioPlayer _audioPlayer;
     [SerializeField] private float _attackTime = 1;
+    [SerializeField] private float _attackCooldown = 1.1f;
     
     public SpriteRenderer playerSprite_Top;
     public SpriteRenderer playerSprite_Bottom;
@@ -58,7 +59,7 @@ public class PlayerControl : MonoBehaviour
             _animationHandler.PlayAttack();
             SetAttackParticleParameters();
             _attackAffected.Clear();
-            Invoke(nameof(EnableAttack), 1.57f);
+            Invoke(nameof(EnableAttack), _attackCooldown);
         }
     }
 
@@ -73,9 +74,9 @@ public class PlayerControl : MonoBehaviour
             _moveSpeed = _player.skillSpeed;
             _animationHandler.PlaySkill();
             
-            Invoke(nameof(ShowPlayerSprite), 3f); // ����� �����������
-            Invoke(nameof(CancelSkill), 2f); // ����� �����������
-            Invoke(nameof(EnableSkills), 6f); // ����� �����������
+            Invoke(nameof(ShowPlayerSprite), 3f);
+            Invoke(nameof(CancelSkill), 2f);
+            Invoke(nameof(EnableSkills), 6f);
             Debug.Log("�� ���� DOWN, ��?");
         }
     }

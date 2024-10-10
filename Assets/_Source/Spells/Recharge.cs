@@ -10,7 +10,7 @@ public class Recharge : MonoBehaviour
     public Image attackSkills;
 
     public float cooldown1 = 7f;
-    public float cooldown2 = 1.57f;
+    public float cooldown2 = 1.1f;
 
     bool isCooldown1;
     bool isCooldown2;

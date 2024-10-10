@@ -35,7 +35,6 @@ namespace LevelSystem
         private void SaveData()
         {
             int level = PlayerPrefs.GetInt(LEVEL_PROPERTY, 0);
-            Debug.Log("SavedLevel - " + (level > Level ? level : Level));
             PlayerPrefs.SetInt(LEVEL_PROPERTY, level > Level ? level : Level);
             PlayerPrefs.Save();
         }

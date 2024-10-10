@@ -15,7 +15,7 @@ MonoBehaviour:
   <SpawnCooldown>k__BackingField: 1
   <SpawnRadius>k__BackingField: 15
   <Endless>k__BackingField: 0
-  <EntityCount>k__BackingField: 30
+  <EntityCount>k__BackingField: 25
   <EnemySpawnerConfigs>k__BackingField:
   - EnemyType: 0
     Weight: 1
