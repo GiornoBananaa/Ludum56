@@ -772,6 +772,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b88bf38550265bb4f9072294c6df33db, type: 3}
+    - target: {fileID: 2204823125877163649, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2212407445917410753, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
       propertyPath: _buttons.Array.data[0]
       value: 
@@ -1896,6 +1900,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameSceneCore
       objectReference: {fileID: 0}
+    - target: {fileID: 6855698944788602009, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6939278038568415673, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1907,6 +1915,10 @@ PrefabInstance:
     - target: {fileID: 7033239081094411424, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
       propertyPath: m_Size.y
       value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289533130960497301, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7710771851564159639, guid: 23859e067d272aa45bf7395f1a8fa9c0, type: 3}
       propertyPath: <Level>k__BackingField

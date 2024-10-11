@@ -17,7 +17,9 @@ namespace LevelSystem
         private Player _player;
         private MusicPlayer _musicPlayer;
         private LevelCounter _levelCounter;
-        
+
+        public Pumping pumping;
+
         [Inject]
         public void Construct(Player player, LevelResultsView levelResultsView, MusicPlayer musicPlayer, LevelCounter levelCounter)
         {

@@ -1,59 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Pumping : MonoBehaviour
 {
+    public GameObject pumpingMenu;
+    public Button attackButton;
+    public Button skillButton;
+    public Button autoAttackButton;
+    public TextMeshProUGUI attackLevelText;
+    public TextMeshProUGUI skillLevelText;
+    public TextMeshProUGUI autoAttackLevelText;
+
+    public int attackLevel = 1;
+    public int skillLevel = 1;
+    public int autoAttackLevel = 0;
+
     public Player player;
-    public int enemyKillCount = 0;
-    public int requiredKillsToLevelUp = 10;
-    public GameObject levelUpWindow;
 
-    private void Start()
+    void Start()
     {
-        //levelUpWindow.SetActive(false);
+        pumpingMenu.SetActive(false);
+
+        attackButton.onClick.AddListener(OnAttackButtonClick);
+        skillButton.onClick.AddListener(OnSkillButtonClick);
+        autoAttackButton.onClick.AddListener(OnAutoAttackButtonClick);
     }
 
-    public void AddKill()
+    public void OpenPumpingMenu()
     {
-        enemyKillCount++;
-        CheckForLevelUp();
+        pumpingMenu.SetActive(true);
+
+        UpdateLevelTexts();
     }
 
-    private void CheckForLevelUp()
+    public void OnAttackButtonClick()
     {
-        if (enemyKillCount >= requiredKillsToLevelUp)
+        if (attackLevel < 4)
         {
-            OpenLevelUpWindow();
+            attackLevel++;
+
+            player.attackRadius += 1;
         }
+
+        UpdateLevelTexts();
+
+        pumpingMenu.SetActive(false);
     }
 
-    private void OpenLevelUpWindow()
+    public void OnSkillButtonClick()
     {
-        levelUpWindow.SetActive(true);
+        if (skillLevel < 4)
+        {
+            skillLevel++;
+
+            player.attackRadius += 1;
+        }
+
+        UpdateLevelTexts();
+
+        pumpingMenu.SetActive(false);
     }
 
-    public void Button1Click()
+    public void OnAutoAttackButtonClick()
     {
-        player.attackPower++;
-        CloseLevelUpWindow();
+        if (autoAttackLevel < 4)
+        {
+            autoAttackLevel++;
+
+            player.attackRadius += 1;
+        }
+
+        UpdateLevelTexts();
+
+        pumpingMenu.SetActive(false);
     }
 
-    public void Button2Click()
+    private void UpdateLevelTexts()
     {
-        player.passiveAttack++;
-        CloseLevelUpWindow();
+        attackLevelText.text = attackLevel + "";
+        skillLevelText.text = skillLevel + "";
+        autoAttackLevelText.text = autoAttackLevel > 0 ? autoAttackLevel + "" : "";
     }
 
-    public void Button3Click()
-    {
-        player.AttackJerk++;
-        CloseLevelUpWindow();
-    }
-
-    private void CloseLevelUpWindow()
-    {
-        levelUpWindow.SetActive(false);
-        enemyKillCount = 0;
-    }
 }
