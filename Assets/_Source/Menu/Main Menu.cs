@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     private const string ATTACK_LEVEL_PROPERTY = "Attack";
     private const string SKILL_LEVEL_PROPERTY = "Skill";
     private const string AUTOATTACK_LEVEL_PROPERTY = "AutoAttack";
+    private const string SHOWED_COMICS_PROPERTY = "ShowedComics";
     
     private const int ARCADE_SCENE_INDEX = 4;
     [SerializeField] private Button _startGameButton;
@@ -42,6 +43,7 @@ public class MainMenu : MonoBehaviour
 
     private void ResetUpgrades()
     {
+        PlayerPrefs.SetInt(SHOWED_COMICS_PROPERTY, 0);
         PlayerPrefs.SetInt(ATTACK_LEVEL_PROPERTY, 1);
         PlayerPrefs.SetInt(SKILL_LEVEL_PROPERTY, 1);
         PlayerPrefs.SetInt(AUTOATTACK_LEVEL_PROPERTY, 0);

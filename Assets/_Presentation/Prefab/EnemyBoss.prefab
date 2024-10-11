@@ -25528,9 +25528,13 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2545385834453044522, guid: 2f4ca6f7eb551c5448d056a114fd5d5c, type: 3}
-      propertyPath: _spritesOnTop.Array.data[1]
+      propertyPath: _spritesOnTop.Array.data[0]
       value: 
       objectReference: {fileID: 1513815130964887739}
+    - target: {fileID: 2545385834453044522, guid: 2f4ca6f7eb551c5448d056a114fd5d5c, type: 3}
+      propertyPath: _spritesOnTop.Array.data[1]
+      value: 
+      objectReference: {fileID: 2948570327313258390}
     - target: {fileID: 2545385834453044522, guid: 2f4ca6f7eb551c5448d056a114fd5d5c, type: 3}
       propertyPath: _spritesOnTop.Array.data[2]
       value: 
