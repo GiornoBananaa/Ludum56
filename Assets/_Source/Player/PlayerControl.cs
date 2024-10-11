@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private PlayerAnimationHandler _animationHandler;
     [SerializeField] private ParticleSystem _attackParticle;
     [SerializeField] private PlayerAudioPlayer _audioPlayer;
+    [SerializeField] private OrbPassiveAttack _orbPassiveAttack;
     [SerializeField] private float _attackTime = 1;
     [SerializeField] private float _attackCooldown = 1.1f;
     
@@ -39,6 +40,7 @@ public class PlayerControl : MonoBehaviour
         projectileDestroyerCollider.enabled = false;
         _player.OnDeath += OnDeath;
         _player.OnLevelSwitch += OnLevelSwitch;
+        _orbPassiveAttack.OnEnemyKilled += _player.EnemyKilled;
         SetAttackParticleParameters();
     }
 
@@ -123,7 +125,7 @@ public class PlayerControl : MonoBehaviour
         {
             if(!_attackAffected.Contains(damageable))
             {
-                _player.killedEnemies++;
+                _player.EnemyKilled();
                 damageable.TakeDamage(_player.attackPower);
                 _attackAffected.Add(damageable);
             }

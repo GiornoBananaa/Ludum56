@@ -11,22 +11,25 @@ namespace Menu
         
         private Tween _tween;
         
-        public void DoMaxFade()
+        public Tween DoMaxFade()
         {
             _tween?.Kill();
             _tween = _fadeImage.DOFade(1f, _fadeTime);
+            return _tween;
         }
             
-        public void DoLightFade()
+        public Tween DoLightFade()
         {
             _tween?.Kill();
             _tween = _fadeImage.DOFade(0.8f,_fadeTime);
+            return _tween;
         }
         
-        public void DoNoFade()
+        public Tween DoNoFade()
         {
             _tween?.Kill();
             _tween = _fadeImage.DOFade(0f, _fadeTime);
+            return _tween;
         }
     }
 }

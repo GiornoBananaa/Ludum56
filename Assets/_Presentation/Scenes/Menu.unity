@@ -964,7 +964,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BeetleBatle
+  m_text: BeetleBattle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2172a3733ae5024ca8c6242ca560ab8, type: 2}
   m_sharedMaterial: {fileID: -4932693138572149316, guid: b2172a3733ae5024ca8c6242ca560ab8, type: 2}

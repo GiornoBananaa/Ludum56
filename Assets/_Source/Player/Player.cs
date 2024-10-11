@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using EntitySystem.CombatSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,13 +24,11 @@ public class Player : MonoBehaviour, IDamageable
 
     public Action OnDeath;
     public Action OnLevelSwitch;
+    public Action OnEnemyKilled;
 
     public Image hpImage1;
     public Image hpImage2;
-
-    public GameObject upgradeMenuPrefab; // Prefab to show when enemy kill milestone is reached
-    public Pumping pumping; // Reference to the Pumping script
-
+    
     private void FixedUpdate()
     {
         if (kill && hp > 0)
@@ -62,21 +58,6 @@ public class Player : MonoBehaviour, IDamageable
     public void EnemyKilled()
     {
         killedEnemies++;
-        CheckForMilestone();
-    }
-
-    private void CheckForMilestone()
-    {
-        if (killedEnemies == 10 || killedEnemies == 20 || killedEnemies == 30)
-        {
-            ShowPumpingMenu();
-        }
-    }
-
-    private void ShowPumpingMenu()
-    {
-        GameObject upgradeMenuInstance = Instantiate(upgradeMenuPrefab);
-        pumping = upgradeMenuInstance.GetComponent<Pumping>();
-        pumping.OpenPumpingMenu();
+        OnEnemyKilled?.Invoke();
     }
 }

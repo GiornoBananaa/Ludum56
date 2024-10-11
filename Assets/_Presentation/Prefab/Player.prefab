@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8342455256355860557}
   - component: {fileID: 4324383228527444018}
   - component: {fileID: 9194667907319050576}
+  - component: {fileID: 9197016143464254443}
   - component: {fileID: 1293222929783247213}
   - component: {fileID: 7783988942734649831}
   - component: {fileID: 4075737139023573533}
@@ -90,7 +91,7 @@ MonoBehaviour:
   hp: 1
   speed: 5
   skillSpeed: 8
-  attackRadius: 2
+  attackRadius: 2.2
   attackAngle: 90
   enemyLayer:
     serializedVersion: 2
@@ -113,8 +114,9 @@ MonoBehaviour:
   _animationHandler: {fileID: 4324383228527444018}
   _attackParticle: {fileID: 2125671661345897846}
   _audioPlayer: {fileID: 9194667907319050576}
-  _particleSpeed: 15
+  _orbPassiveAttack: {fileID: 9197016143464254443}
   _attackTime: 0.18
+  _attackCooldown: 1.1
   playerSprite_Top: {fileID: 4473156658472545061}
   playerSprite_Bottom: {fileID: 1037158789703028295}
   hitBox: {fileID: 7783988942734649831}
@@ -157,6 +159,25 @@ MonoBehaviour:
   _stepSound:
     Clip: {fileID: 8300000, guid: 8b1647196fffb854c824624170eac7c4, type: 3}
     MaxVolume: 1
+--- !u!114 &9197016143464254443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351474989735466132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a98f3c285cc264a897e02a64bc21a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orbPrefab: {fileID: 6794407402326645253, guid: eb719bb090bb68a49bd6ae8d9f958baa, type: 3}
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _damage: 1
+  _radius: 3
+  _rotationSpeed: 120
 --- !u!114 &1293222929783247213
 MonoBehaviour:
   m_ObjectHideFlags: 0

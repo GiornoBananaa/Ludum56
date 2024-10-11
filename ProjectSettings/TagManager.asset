@@ -14,9 +14,9 @@ TagManager:
   - Player
   - Enemy
   - ProjectileDestroy
-  - Projectile
+  - EnemyProjectile
   - IngoreEntities
-  - 
+  - PlayerProjectile
   - 
   - 
   - 

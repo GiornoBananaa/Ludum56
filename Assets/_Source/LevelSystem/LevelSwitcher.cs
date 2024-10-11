@@ -1,3 +1,4 @@
+using System;
 using AudioSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -30,6 +31,12 @@ namespace LevelSystem
             _levelCounter = levelCounter;
         }
 
+        private void Awake()
+        {
+            if (Level == 4)
+                pumping.ResetUpgrades();
+        }
+
         private void Start()
         {
             _levelCounter.SetLevel(Level);
@@ -54,6 +61,8 @@ namespace LevelSystem
         private async void OnPlayerDeath()
         {
             _musicPlayer.Play(MusicType.Death);
+            pumping.RevertCurrentUpgrades();
+            
             await UniTask.WaitForSeconds(2);
             
             _levelResultsView.OnRestart.AddListener(RestartLevel);
